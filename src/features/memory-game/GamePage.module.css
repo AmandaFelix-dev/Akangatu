@@ -1,0 +1,272 @@
+.gamePage {
+  min-height: 100dvh;
+  padding: 22px 18px 36px;
+  color: #082d41;
+  background:
+    radial-gradient(circle at 15% 5%, rgb(255 255 255 / 48%), transparent 24%),
+    #f5ecd9;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  align-items: center;
+  gap: 8px;
+}
+
+.backButton,
+.pauseButton {
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid #082d41;
+  border-radius: 50%;
+  color: #082d41;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.pauseButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.gameInfo {
+  text-align: center;
+}
+
+.gameInfo p {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.gameInfo span {
+  color: #5d7467;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 28px 0 16px;
+}
+
+.status div {
+  border-top: 1px solid rgb(8 45 65 / 28%);
+  border-bottom: 1px solid rgb(8 45 65 / 28%);
+  padding: 10px 0;
+  text-align: center;
+}
+
+.status span {
+  display: block;
+  color: #68796d;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.status strong {
+  display: block;
+  margin-top: 4px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.35rem;
+}
+
+.startSection {
+  margin: 14px 0 21px;
+  text-align: center;
+}
+
+.startSection p {
+  margin: 0 0 13px;
+  color: #576d60;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.92rem;
+}
+
+.startButton,
+.pauseModal button {
+  min-height: 48px;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 22px;
+  color: #f9f0dc;
+  background: #082d41;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.boardDisabled {
+  opacity: 0.55;
+}
+
+.memoryCard {
+  aspect-ratio: 0.72;
+  border: 0;
+  padding: 0;
+  perspective: 800px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cardInner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s ease;
+}
+
+.flipped .cardInner {
+  transform: rotateY(180deg);
+}
+
+.cardBack,
+.cardFront {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 2px solid #082d41;
+  border-radius: 8px;
+  backface-visibility: hidden;
+}
+
+.cardBack {
+  gap: 4px;
+  color: #f4ead6;
+  background:
+    linear-gradient(135deg, transparent 45%, rgb(244 234 214 / 10%) 45% 55%, transparent 55%),
+    #082d41;
+}
+
+.cardBack::before {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid #e9cf8d;
+  border-radius: 4px;
+  content: '';
+}
+
+.cardBack b,
+.cardBack i {
+  position: relative;
+  z-index: 1;
+}
+
+.cardBack b {
+  color: #e8c363;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+}
+
+.cardBack i {
+  color: #f4ead6;
+  font-size: 0.58rem;
+}
+
+.cardFront {
+  background: #f8efdc;
+  transform: rotateY(180deg);
+}
+
+.cardFront img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.matched {
+  filter: saturate(0.88);
+}
+
+.matched .cardFront {
+  border-color: #b88731;
+  box-shadow: inset 0 0 0 3px rgb(232 195 99 / 58%);
+}
+
+.modalOverlay {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(8 45 65 / 68%);
+}
+
+.pauseModal {
+  width: min(100%, 380px);
+  padding: 31px 24px;
+  border: 2px solid #082d41;
+  border-radius: 12px;
+  color: #082d41;
+  background: #f5ecd9;
+  text-align: center;
+  box-shadow: 6px 7px 0 #c3923f;
+}
+
+.modalLabel {
+  margin: 0;
+  color: #9a7433;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.pauseModal h2 {
+  margin: 10px 0 24px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.7rem;
+  line-height: 1.05;
+}
+
+.pauseModal button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.pauseModal .outlineButton {
+  border: 1.5px solid #082d41;
+  color: #082d41;
+  background: transparent;
+}
+
+.result {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: -8px 0 20px;
+  color: #51695d;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+@media (min-width: 700px) {
+  .gamePage {
+    width: min(100%, 600px);
+    margin: 0 auto;
+  }
+
+  .board {
+    gap: 14px;
+  }
+}
