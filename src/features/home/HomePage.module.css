@@ -1,0 +1,203 @@
+.home {
+  width: min(100% - 48px, 1280px);
+  padding: 70px 0 90px;
+  margin: 0 auto;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 80px;
+  align-items: center;
+  min-height: 570px;
+}
+
+.label,
+.themeTitle,
+.cardNumber,
+.stepsTitle,
+.stepList span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.intro h1 {
+  margin: 18px 0 24px;
+  font-size: clamp(4rem, 7vw, 7.3rem);
+  letter-spacing: -0.09em;
+  line-height: 0.84;
+}
+
+.intro h1 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.intro p {
+  max-width: 430px;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.playButton,
+.aboutButton {
+  padding: 14px 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  font-weight: 800;
+}
+
+.playButton {
+  color: var(--white);
+  background: var(--ink);
+}
+
+.playButton span {
+  margin-left: 8px;
+  font-size: 1.15rem;
+}
+
+.aboutButton {
+  color: var(--ink);
+  background: transparent;
+}
+
+.playButton:hover,
+.aboutButton:hover {
+  transform: translateY(-3px);
+}
+
+.themeArea {
+  overflow: hidden;
+  padding: 28px 10px 38px;
+}
+
+.themeTitle {
+  display: block;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.themeCards {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.themeCard {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 150px;
+  height: 320px;
+  padding: 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 20px;
+  box-shadow: 5px 5px 0 var(--ink);
+  cursor: default;
+}
+
+.themeCard h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  letter-spacing: -0.06em;
+}
+
+.themeCard p {
+  margin: 8px 0 0;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.cardDoodle {
+  align-self: center;
+  font-size: 5rem;
+  line-height: 1;
+}
+
+.green { background: var(--green); color: var(--white); }
+.blue { background: var(--blue); }
+.pink { background: var(--pink); }
+
+.steps {
+  padding-top: 75px;
+  border-top: 1.5px solid var(--ink);
+}
+
+.stepsTitle {
+  margin: 0 0 26px;
+  text-align: center;
+}
+
+.stepList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stepList article {
+  padding: 24px;
+  background: var(--white);
+  border: 1.5px solid var(--ink);
+  border-radius: 18px;
+}
+
+.stepList h2 {
+  margin: 35px 0 10px;
+  font-size: 1.5rem;
+  letter-spacing: -0.05em;
+}
+
+.stepList p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 850px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .themeArea {
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .home {
+    width: min(100% - 32px, 1280px);
+    padding-top: 48px;
+  }
+
+  .intro h1 {
+    font-size: 4.4rem;
+  }
+
+  .themeCards {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 10px 5px 20px;
+  }
+
+  .themeCard {
+    flex: 0 0 200px;
+    height: 280px;
+  }
+
+  .stepList {
+    grid-template-columns: 1fr;
+  }
+}

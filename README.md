@@ -1,75 +1,116 @@
-# React + TypeScript + Vite
+# Akangatu ✦
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Um jogo da memória que transforma cada partida em uma experiência de atenção, descoberta e evolução.
 
-Currently, two official plugins are available:
+Akangatu é um jogo da memória desenvolvido como projeto acadêmico. Nele, o jogador escolhe o nível de dificuldade, personaliza a partida com temas visuais e acompanha seu desempenho por meio de tempo, tentativas, histórico e recordes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Além de encontrar os pares, o objetivo é desbloquear novas coleções e tornar cada partida uma pequena conquista.
 
-## React Compiler
+## Sobre o jogo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Em cada partida, as cartas começam viradas para baixo. O jogador deve revelar duas por vez e encontrar os pares correspondentes com o menor número possível de tentativas e no menor tempo possível.
 
-## Expanding the ESLint configuration
+O Akangatu foi pensado para ser mais do que um jogo: uma experiência visual leve, divertida e personalizada, com diferentes universos para explorar.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Funcionalidades
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* Escolha de dificuldade: Fácil, Médio ou Difícil.
+* Escolha de tema para personalizar as cartas.
+* Cartas embaralhadas a cada partida.
+* Comparação automática entre duas cartas.
+* Contador de tentativas.
+* Cronômetro em tempo real.
+* Pausa de partida.
+* Detecção de vitória.
+* Modo Desafio com limite de tempo ou tentativas.
+* Histórico de partidas.
+* Recordes separados por dificuldade.
+* Sistema de progresso e desbloqueio de temas.
+* Manual de como jogar no primeiro acesso.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Níveis de dificuldade
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Dificuldade | Cartas | Pares |
+| ----------- | -----: | ----: |
+| Fácil       |      8 |     4 |
+| Médio       |     12 |     6 |
+| Difícil     |     16 |     8 |
 
+## Temas
+
+Cada tema cria uma experiência visual diferente para o jogo. Alguns temas estarão disponíveis desde o início, enquanto outros poderão ser desbloqueados conforme o progresso do jogador.
+
+* **Pessoas** — estilos, histórias e personalidades.
+* **Animais** — diversidade, curiosidade e fauna.
+* **Emoções** — sentimentos para reconhecer e combinar.
+* **Xadrez** — peças, estratégia e movimentos.
+* **Princesas** — personagens, cenários e detalhes marcantes.
+* **Criaturas** — seres originais, misteriosos e divertidos.
+
+## Tecnologias utilizadas
+
+* [React](https://react.dev/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Vite](https://vite.dev/)
+* [CSS Modules](https://github.com/css-modules/css-modules)
+* [Motion](https://motion.dev/)
+* localStorage
+* Vitest
+* Testing Library
+
+## Como executar o projeto
+
+Clone este repositório:
+
+```bash
+git clone https://github.com/AmandaFelix-dev/Akangatu_Dev.git
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Acesse a pasta do projeto:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+cd Akangatu_Dev
 ```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Inicie o servidor de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+Depois, abra o endereço exibido no terminal — normalmente:
+
+```text
+http://localhost:5173
+```
+
+## Estrutura do projeto
+
+```text
+src/
+├── assets/        # Imagens, ícones e artes dos temas
+├── components/    # Componentes reutilizáveis
+├── data/          # Dados fixos, temas, níveis e regras
+├── features/      # Funcionalidades e telas do jogo
+├── hooks/         # Hooks personalizados
+├── services/      # Persistência e regras de armazenamento
+├── styles/        # Estilos globais e variáveis
+├── types/         # Tipos compartilhados do TypeScript
+└── utils/         # Funções auxiliares
+```
+
+## Status do projeto
+
+Em desenvolvimento. ✦
+
+A estrutura inicial, identidade visual e telas de apresentação estão sendo construídas. As próximas etapas incluem a implementação completa do tabuleiro, lógica de comparação, cronômetro, histórico, desafios e sistema de desbloqueio.
+
+---
+
+Sendo desenvolvido por [Amanda Felix](https://github.com/AmandaFelix-dev) e [Ryane Feitosa]().
