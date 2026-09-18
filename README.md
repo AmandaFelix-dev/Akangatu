@@ -2,31 +2,44 @@
 
 > Um jogo da memória que transforma cada partida em uma experiência de atenção, descoberta e evolução.
 
-Akangatu é um jogo da memória desenvolvido como projeto acadêmico. Nele, o jogador escolhe o nível de dificuldade, personaliza a partida com temas visuais e acompanha seu desempenho por meio de tempo, tentativas, histórico e recordes.
+Akangatu é um jogo da memória desenvolvido como projeto acadêmico. A pessoa escolhe uma coleção visual, define a dificuldade e encontra os pares no menor tempo e com o menor número possível de tentativas.
 
-Além de encontrar os pares, o objetivo é desbloquear novas coleções e tornar cada partida uma pequena conquista.
+Mais do que completar uma partida, o jogo propõe uma experiência de descoberta: cada coleção apresenta um universo próprio, enquanto o desempenho registrado incentiva novas tentativas e a evolução ao longo do tempo.
 
 ## Sobre o jogo
 
-Em cada partida, as cartas começam viradas para baixo. O jogador deve revelar duas por vez e encontrar os pares correspondentes com o menor número possível de tentativas e no menor tempo possível.
+Em cada partida, as cartas começam viradas para baixo. A pessoa deve revelar duas por vez e encontrar os pares correspondentes, acompanhando o cronômetro e o número de tentativas em tempo real.
 
-O Akangatu foi pensado para ser mais do que um jogo: uma experiência visual leve, divertida e personalizada, com diferentes universos para explorar.
+O Akangatu foi pensado como uma experiência leve, visual e personalizada, inspirada em natureza, cultura, memória e artesanato.
 
-## Funcionalidades
+## Fluxo principal implementado
 
-* Escolha de dificuldade: Fácil, Médio ou Difícil.
-* Escolha de tema para personalizar as cartas.
-* Cartas embaralhadas a cada partida.
+**Home → Coleções → Dificuldade → Partida → Pausa → Desempenho**
+
+* Na Home, a pessoa pode iniciar uma partida, consultar o manual e acessar seu desempenho.
+* Em Coleções, escolhe o universo visual da partida.
+* Após selecionar uma coleção disponível, define a dificuldade entre 4, 6 ou 8 pares.
+* Durante a partida, acompanha o tempo e as tentativas.
+* A pausa permite continuar, reiniciar ou sair da partida com confirmação.
+* Ao concluir uma partida, o desempenho é salvo localmente e pode ser consultado na tela de Desempenho.
+
+## Funcionalidades atuais
+
+* Escolha de coleção/tema.
+* Fauna disponível para jogar.
+* Flora e Xilogravura apresentadas como coleções bloqueadas.
+* Escolha de dificuldade: 4, 6 ou 8 pares.
+* Cartas embaralhadas a cada nova partida.
 * Comparação automática entre duas cartas.
 * Contador de tentativas.
 * Cronômetro em tempo real.
 * Pausa de partida.
-* Detecção de vitória.
-* Modo Desafio com limite de tempo ou tentativas.
-* Histórico de partidas.
-* Recordes separados por dificuldade.
-* Sistema de progresso e desbloqueio de temas.
-* Manual de como jogar no primeiro acesso.
+* Reinício e saída com confirmação.
+* Detecção de conclusão da partida.
+* Registro local de partidas concluídas.
+* Tela de desempenho com total de partidas, melhor tempo, menor número de tentativas e resumo por dificuldade.
+* Manual/Sobre acessível pela Home.
+* Interface responsiva e compatível com preferência por movimento reduzido.
 
 ## Níveis de dificuldade
 
@@ -36,16 +49,13 @@ O Akangatu foi pensado para ser mais do que um jogo: uma experiência visual lev
 | Médio       |     12 |     6 |
 | Difícil     |     16 |     8 |
 
-## Temas
+## Coleções
 
-Cada tema cria uma experiência visual diferente para o jogo. Alguns temas estarão disponíveis desde o início, enquanto outros poderão ser desbloqueados conforme o progresso do jogador.
+Cada coleção cria uma experiência visual diferente para as cartas. Algumas ficam disponíveis desde o início, enquanto outras aparecem bloqueadas e serão liberadas com o progresso do jogador em versões futuras.
 
-* **Pessoas** — estilos, histórias e personalidades.
-* **Animais** — diversidade, curiosidade e fauna.
-* **Emoções** — sentimentos para reconhecer e combinar.
-* **Xadrez** — peças, estratégia e movimentos.
-* **Princesas** — personagens, cenários e detalhes marcantes.
-* **Criaturas** — seres originais, misteriosos e divertidos.
+* **Fauna** — diversidade, curiosidade e vida selvagem.
+* **Flora** — formas, cores e detalhes da natureza.
+* **Xilogravura** — referências visuais à impressão artesanal e à cultura popular.
 
 ## Tecnologias utilizadas
 
@@ -84,58 +94,29 @@ Inicie o servidor de desenvolvimento:
 npm run dev
 ```
 
-Depois, abra o endereço exibido no terminal — normalmente:
-
-```text
-http://localhost:5173
-```
+Depois, abra o endereço exibido no terminal — normalmente http://localhost:5173.
 
 ## Estrutura do projeto
 
 ```text
 src/
-├── assets/        # Imagens, ícones e artes dos temas
-├── components/    # Componentes reutilizáveis
-├── data/          # Dados fixos, temas, níveis e regras
-├── features/      # Funcionalidades e telas do jogo
-├── hooks/         # Hooks personalizados
-├── services/      # Persistência e regras de armazenamento
-├── styles/        # Estilos globais e variáveis
-├── types/         # Tipos compartilhados do TypeScript
-└── utils/         # Funções auxiliares
+├── app/            # Rotas e estrutura principal da aplicação
+├── assets/         # Imagens, ícones e artes das coleções
+├── components/     # Componentes reutilizáveis
+├── data/           # Coleções, dificuldades e dados fixos
+├── features/       # Funcionalidades organizadas por domínio
+├── hooks/          # Hooks personalizados
+├── services/       # Persistência local e serviços
+├── styles/         # Estilos globais e variáveis
+├── types/          # Tipos compartilhados do TypeScript
+└── utils/          # Funções auxiliares
 ```
 
-## Status do projeto
+A funcionalidade de jogo está separada por responsabilidade: configuração da partida, tabuleiro, cartas, pausa, lógica do jogo e desempenho. Os registros salvos incluem ID, data, coleção, dificuldade, tempo e tentativas, deixando a base preparada para futuras telas de histórico e progresso.
 
-Em desenvolvimento. ✦
+## Como verificar
 
-A estrutura inicial, identidade visual e telas de apresentação estão sendo construídas. As próximas etapas incluem a implementação completa do tabuleiro, lógica de comparação, cronômetro, histórico, desafios e sistema de desbloqueio.
-
----
-
-Sendo desenvolvido por [Amanda Felix](https://github.com/AmandaFelix-dev) e [Ryane Feitosa]().
-## Fluxo principal implementado
-
-Home → coleção → dificuldade (4, 6 ou 8 pares) → partida → pausa → desempenho.
-A Fauna está disponível; Flora e Xilogravura têm apresentação e dados de bloqueio, sem regras de desbloqueio ativas. A conclusão usa uma mensagem simples, sem medalhas ou estrelas.
-
-### Organização
-
-- `src/app/routes.ts`: rotas por hash, compatíveis com hospedagem estática. A rota antiga de dificuldade retorna à escolha de tema para preservar a ordem da jornada.
-- `src/features/`: páginas e componentes organizados por funcionalidade. `memory-game` separa tabuleiro, carta, pausa, reducer e hook do jogo; `game-setup` separa tema e dificuldade; `profile` apresenta desempenho.
-- `src/components/Modal`: diálogo nativo reutilizável, com foco, Escape e restauração de foco.
-- `src/data/`: temas, disponibilidade, descrições de desbloqueio e dificuldades.
-- `src/utils/`: embaralhamento, criação de pares e formatação de tempo.
-- `src/services/history.service.ts`: registros versionados no localStorage, validação de dados e alternativa em memória quando o armazenamento está indisponível. Apenas partidas concluídas são registradas.
-- `src/assets/images/optimized/`: cópias leves das ilustrações. Os originais foram preservados; as pranchas completas de cartas não são carregadas pela interface.
-- `scripts/optimize-assets.ps1`: gera novamente os JPEGs de entrega a partir das imagens embutidas nos SVGs originais (Windows / System.Drawing).
-
-A identidade visual combina papel, verde profundo, terracota, títulos em serifas e ilustrações das próprias coleções. Os layouts são responsivos e respeitam a preferência por movimento reduzido.
-
-### Executar e verificar
-
-```sh
-npm install
+```bash
 npm run dev
 npm run build
 npm run lint
@@ -144,4 +125,15 @@ npm test
 
 No PowerShell com execução de scripts restrita, use `npm.cmd`.
 
-Os registros já incluem ID, data, tema, dificuldade, tempo e tentativas para permitir uma tela futura de histórico. Os tipos de configuração e os metadados das coleções permitem evoluir modos e desbloqueios separadamente da mecânica tradicional. Modo Desafio, histórico detalhado, medalhas e regras completas de desbloqueio ainda não foram implementados.
+## Próximas funcionalidades
+
+* Modo Desafio com limite de tempo ou tentativas.
+* Histórico detalhado de partidas.
+* Regras reais para desbloqueio de coleções.
+* Tela de resultado com medalhas, estrelas e comparação de recordes.
+
+## Status do projeto
+
+Em desenvolvimento. ✦
+
+Desenvolvido por [Amanda Felix](https://github.com/AmandaFelix-dev) e Ryane Feitosa.
