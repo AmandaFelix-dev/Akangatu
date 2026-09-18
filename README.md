@@ -114,3 +114,34 @@ A estrutura inicial, identidade visual e telas de apresentação estão sendo co
 ---
 
 Sendo desenvolvido por [Amanda Felix](https://github.com/AmandaFelix-dev) e [Ryane Feitosa]().
+## Fluxo principal implementado
+
+Home → coleção → dificuldade (4, 6 ou 8 pares) → partida → pausa → desempenho.
+A Fauna está disponível; Flora e Xilogravura têm apresentação e dados de bloqueio, sem regras de desbloqueio ativas. A conclusão usa uma mensagem simples, sem medalhas ou estrelas.
+
+### Organização
+
+- `src/app/routes.ts`: rotas por hash, compatíveis com hospedagem estática. A rota antiga de dificuldade retorna à escolha de tema para preservar a ordem da jornada.
+- `src/features/`: páginas e componentes organizados por funcionalidade. `memory-game` separa tabuleiro, carta, pausa, reducer e hook do jogo; `game-setup` separa tema e dificuldade; `profile` apresenta desempenho.
+- `src/components/Modal`: diálogo nativo reutilizável, com foco, Escape e restauração de foco.
+- `src/data/`: temas, disponibilidade, descrições de desbloqueio e dificuldades.
+- `src/utils/`: embaralhamento, criação de pares e formatação de tempo.
+- `src/services/history.service.ts`: registros versionados no localStorage, validação de dados e alternativa em memória quando o armazenamento está indisponível. Apenas partidas concluídas são registradas.
+- `src/assets/images/optimized/`: cópias leves das ilustrações. Os originais foram preservados; as pranchas completas de cartas não são carregadas pela interface.
+- `scripts/optimize-assets.ps1`: gera novamente os JPEGs de entrega a partir das imagens embutidas nos SVGs originais (Windows / System.Drawing).
+
+A identidade visual combina papel, verde profundo, terracota, títulos em serifas e ilustrações das próprias coleções. Os layouts são responsivos e respeitam a preferência por movimento reduzido.
+
+### Executar e verificar
+
+```sh
+npm install
+npm run dev
+npm run build
+npm run lint
+npm test
+```
+
+No PowerShell com execução de scripts restrita, use `npm.cmd`.
+
+Os registros já incluem ID, data, tema, dificuldade, tempo e tentativas para permitir uma tela futura de histórico. Os tipos de configuração e os metadados das coleções permitem evoluir modos e desbloqueios separadamente da mecânica tradicional. Modo Desafio, histórico detalhado, medalhas e regras completas de desbloqueio ainda não foram implementados.

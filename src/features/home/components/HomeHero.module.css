@@ -1,0 +1,90 @@
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 28px;
+  padding: 62px 52px;
+  border: 1px solid var(--home-frame);
+  border-radius: 14px;
+  background-color: var(--home-paper);
+  background-image: radial-gradient(#8068460a .65px, transparent .65px);
+  background-size: 5px 5px;
+  isolation: isolate;
+}
+.hero::before {
+  position: absolute;
+  inset: 7px;
+  z-index: -1;
+  border: 1px solid var(--home-inner-frame);
+  border-radius: 9px;
+  content: '';
+  pointer-events: none;
+}
+.copy { min-width: 0; }
+.eyebrow {
+  margin: 0 0 24px;
+  color: var(--wood);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .19em;
+  line-height: 1.6;
+}
+.copy h1 {
+  margin: 0;
+  color: var(--navy);
+  font-family: 'Arial Narrow', 'Franklin Gothic Medium', var(--font-main);
+  font-size: clamp(2.8rem, 5.2vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -.045em;
+  line-height: 1.12;
+}
+.tagline {
+  margin: 19px 0 0;
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.4vw, 2rem);
+  line-height: 1.35;
+  letter-spacing: -.025em;
+}
+.tagline em { color: var(--forest); }
+.description {
+  max-width: 305px;
+  margin: 19px 0 0;
+  color: var(--muted);
+  font-size: .93rem;
+  line-height: 1.8;
+}
+.actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 30px; }
+.play { min-width: 206px; justify-content: space-between; background: var(--navy); border-color: var(--navy); border-radius: 6px; }
+.play:hover { background: var(--forest); border-color: var(--forest); }
+.manual {
+  min-height: 44px;
+  padding: 9px 0;
+  color: var(--navy);
+  background: transparent;
+  border: 0;
+  font-size: .8rem;
+  text-decoration: underline;
+  text-decoration-color: var(--home-frame);
+  text-underline-offset: 6px;
+}
+.manual:hover { text-decoration-color: var(--navy); }
+@media (max-width: 1000px) {
+  .hero { padding: 45px 32px; gap: 20px; }
+}
+@media (max-width: 700px) {
+  .hero { grid-template-columns: 1fr; gap: 25px; padding: 36px 28px 24px; }
+  .copy { text-align: center; }
+  .eyebrow { margin-bottom: 17px; }
+  .copy h1 { font-size: clamp(2.75rem, 10vw, 3.8rem); }
+  .tagline { margin-top: 13px; }
+  .description { margin: 15px auto 0; }
+  .actions { align-items: center; gap: 8px; margin-top: 24px; }
+  .play { width: min(100%, 280px); }
+}
+@media (max-width: 360px) {
+  .hero { padding-inline: 20px; }
+  .copy h1 { font-size: 2.65rem; }
+  .tagline { font-size: 1.4rem; }
+}

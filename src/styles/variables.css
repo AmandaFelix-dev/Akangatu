@@ -1,13 +1,11 @@
 :root {
-  --ink: #171717;
-  --paper: #f4f0e7;
-  --white: #fffdf8;
-  --orange: #ff7040;
-  --blue: #9db3f5;
-  --yellow: #f1e57b;
-  --pink: #eeb9f1;
-  --green: #3f8776;
-
-  --font-main: Arial, Helvetica, sans-serif;
-  --radius: 24px;
+  --ink:#193d32;
+  --paper:#f5f1e7;
+  --white:#fffdf7;
+  --green:#193d32;
+  --orange:#b64e32;
+  --font-main:'Segoe UI',Arial,sans-serif;
+  --color-cream:var(--paper);
+  --color-text:var(--ink);
+  --radius:16px
 }
