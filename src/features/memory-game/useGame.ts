@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from 'react'
 import { THEMES } from '../../data/themes'
 import { DIFFICULTIES } from '../../data/difficulties'
+import { MISMATCH_DELAY_MS } from '../../data/game'
 import { createDeck } from '../../utils/createDeck'
 import { gameReducer } from './gameReducer'
 import type { GameConfig } from '../../types/game'
@@ -33,7 +34,7 @@ export function useGame(config: GameConfig, suspended = false) {
 
   useEffect(() => {
     if (paused || suspended || state.selected.length !== 2) return
-    const timeout = setTimeout(() => dispatch({ type: 'resolve' }), 850)
+    const timeout = setTimeout(() => dispatch({ type: 'resolve' }), MISMATCH_DELAY_MS)
     return () => clearTimeout(timeout)
   }, [paused, suspended, state.selected])
 
