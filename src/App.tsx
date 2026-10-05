@@ -14,12 +14,18 @@ export default function App() {
   const [route, setRoute] = useState(() => resolveRoute(location.hash))
   const [config, setConfig] = useState<GameConfig | null>(null)
   const [pendingRoute, setPendingRoute] = useState<AppRoute | null>(null)
+  const [started, setStarted] = useState(false)
   const navigate = (path: string) => { location.hash = path }
 
   useEffect(() => {
     const update = () => {
       const next = resolveRoute(location.hash)
       if (route === ROUTES.game && config && next !== ROUTES.game) {
+        if (!started) {
+          setConfig(null)
+          setRoute(next)
+          return
+        }
         setPendingRoute(next)
         location.replace('#' + ROUTES.game)
         return
@@ -28,7 +34,7 @@ export default function App() {
     }
     window.addEventListener('hashchange', update)
     return () => window.removeEventListener('hashchange', update)
-  }, [route, config])
+  }, [route, config, started])
 
   useEffect(() => {
     document.querySelector<HTMLElement>('main h1')?.focus()
@@ -38,6 +44,7 @@ export default function App() {
   const exitTo = (destination: AppRoute) => {
     setConfig(null)
     setPendingRoute(null)
+    setStarted(false)
     navigate(destination)
   }
 
@@ -58,10 +65,10 @@ export default function App() {
       </header>
       {route === ROUTES.home && <HomePage onPlay={() => navigate(ROUTES.themes)} onAbout={() => navigate(ROUTES.manual)} />}
       {(route === ROUTES.themes || (route === ROUTES.game && !config)) && (
-        <ThemeSelection onBack={() => navigate(ROUTES.home)} onStart={value => { setConfig(value); navigate(ROUTES.game) }} />
+        <ThemeSelection onBack={() => navigate(ROUTES.home)} onStart={value => { setConfig(value); setStarted(false); navigate(ROUTES.game) }} />
       )}
       {route === ROUTES.game && config && (
-        <GamePage config={config} suspended={pendingRoute !== null} onExit={() => exitTo(ROUTES.themes)} onPerformance={() => exitTo(ROUTES.player)} />
+        <GamePage config={config} suspended={pendingRoute !== null} onExit={() => exitTo(ROUTES.themes)} onPerformance={() => exitTo(ROUTES.player)} onStarted={() => setStarted(true)} />
       )}
       {route === ROUTES.player && <ProfilePage onPlay={() => navigate(ROUTES.themes)} />}
       {route === ROUTES.manual && <AboutPage onBack={() => navigate(ROUTES.home)} />}

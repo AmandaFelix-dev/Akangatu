@@ -8,16 +8,19 @@ import { Board } from './Board'
 import { GameStatus } from './GameStatus'
 import { PauseModal } from './PauseModal'
 import { CompletionNotice } from './CompletionNotice'
+import { StartConfirmation } from './StartConfirmation'
 
 interface GamePageProps {
   config: GameConfig
   suspended: boolean
   onExit: () => void
   onPerformance: () => void
+  onStarted: () => void
 }
 
-export function GamePage({ config, suspended, onExit, onPerformance }: GamePageProps) {
-  const game = useGame(config, suspended)
+export function GamePage({ config, suspended, onExit, onPerformance, onStarted }: GamePageProps) {
+  const [started, setStarted] = useState(false)
+  const game = useGame(config, suspended || !started)
   const { setPaused } = game
   const saved = useRef(false)
   const [persistent, setPersistent] = useState(true)
@@ -37,20 +40,21 @@ export function GamePage({ config, suspended, onExit, onPerformance }: GamePageP
   }, [game.complete, game.state.elapsed, game.state.attempts, config])
 
   useEffect(() => {
-    const hide = () => { if (document.hidden) setPaused(true) }
+    const hide = () => { if (document.hidden && started) setPaused(true) }
     document.addEventListener('visibilitychange', hide)
     return () => document.removeEventListener('visibilitychange', hide)
-  }, [setPaused])
+  }, [setPaused, started])
 
   useEffect(() => {
     const guard = (event: BeforeUnloadEvent) => {
-      if (!game.complete) { event.preventDefault(); event.returnValue = '' }
+      if (started && !game.complete) { event.preventDefault(); event.returnValue = '' }
     }
     window.addEventListener('beforeunload', guard)
     return () => window.removeEventListener('beforeunload', guard)
-  }, [game.complete])
+  }, [started, game.complete])
 
   const restart = () => { saved.current = false; game.restart() }
+  const start = () => { setStarted(true); onStarted() }
 
   return (
     <main className="page game-page">
@@ -64,10 +68,14 @@ export function GamePage({ config, suspended, onExit, onPerformance }: GamePageP
       <GameStatus elapsed={game.state.elapsed} attempts={game.state.attempts}
         found={found} total={difficulty.pairs} complete={game.complete} onPause={() => setPaused(true)} />
       <Board cards={game.state.cards} onFlip={game.flip}
-        disabled={game.paused || suspended || game.state.selected.length === 2} />
+        disabled={game.paused || suspended || !started || game.state.selected.length === 2} />
       <p className="game-hint" role="status">
         {found > 0 ? `${found} pares encontrados. Continue explorando.` : 'Vire duas cartas e descubra os encontros.'}
       </p>
+      {!started && (
+        <StartConfirmation themeName={theme.name} difficultyName={difficulty.name} pairs={difficulty.pairs}
+          mode={config.mode} onStart={start} onCancel={onExit} />
+      )}
       {game.paused && !game.complete && (
         <PauseModal onContinue={() => setPaused(false)} onRestart={restart} onExit={onExit} />
       )}
