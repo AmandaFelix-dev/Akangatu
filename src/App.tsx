@@ -68,7 +68,7 @@ export default function App() {
         <ThemeSelection onBack={() => navigate(ROUTES.home)} onStart={value => { setConfig(value); setStarted(false); navigate(ROUTES.game) }} />
       )}
       {route === ROUTES.game && config && (
-        <GamePage config={config} suspended={pendingRoute !== null} onExit={() => exitTo(ROUTES.themes)} onPerformance={() => exitTo(ROUTES.player)} onStarted={() => setStarted(true)} />
+        <GamePage config={config} suspended={pendingRoute !== null} onExit={() => exitTo(ROUTES.themes)} onPerformance={() => exitTo(ROUTES.player)} onHome={() => exitTo(ROUTES.home)} onStarted={() => setStarted(true)} />
       )}
       {route === ROUTES.player && <ProfilePage onPlay={() => navigate(ROUTES.themes)} />}
       {route === ROUTES.manual && <AboutPage onBack={() => navigate(ROUTES.home)} />}
