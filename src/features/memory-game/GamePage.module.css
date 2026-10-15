@@ -73,7 +73,7 @@
 .status strong {
   display: block;
   margin-top: 4px;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-main);
   font-size: 1.35rem;
 }
 
@@ -85,7 +85,7 @@
 .startSection p {
   margin: 0 0 13px;
   color: #576d60;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-main);
   font-size: 0.92rem;
 }
 
@@ -153,7 +153,12 @@
   gap: 4px;
   color: #f4ead6;
   background:
-    linear-gradient(135deg, transparent 45%, rgb(244 234 214 / 10%) 45% 55%, transparent 55%),
+    linear-gradient(
+      135deg,
+      transparent 45%,
+      rgb(244 234 214 / 10%) 45% 55%,
+      transparent 55%
+    ),
     #082d41;
 }
 
@@ -162,7 +167,7 @@
   inset: 5px;
   border: 1px solid #e9cf8d;
   border-radius: 4px;
-  content: '';
+  content: "";
 }
 
 .cardBack b,
@@ -173,7 +178,7 @@
 
 .cardBack b {
   color: #e8c363;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-main);
   font-size: 1rem;
 }
 
@@ -234,7 +239,7 @@
 
 .pauseModal h2 {
   margin: 10px 0 24px;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-main);
   font-size: 1.7rem;
   line-height: 1.05;
 }

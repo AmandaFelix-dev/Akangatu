@@ -1,11 +1,12 @@
 :root {
-  --ink:#193d32;
-  --paper:#f5f1e7;
-  --white:#fffdf7;
-  --green:#193d32;
-  --orange:#b64e32;
-  --font-main:'Segoe UI',Arial,sans-serif;
-  --color-cream:var(--paper);
-  --color-text:var(--ink);
-  --radius:16px
+  --ink: #193d32;
+  --paper: #f5f1e7;
+  --white: #fffdf7;
+  --green: #193d32;
+  --orange: #b64e32;
+  --font-main: "Poppins", sans-serif;
+  --font-display: var(--font-main);
+  --color-cream: var(--paper);
+  --color-text: var(--ink);
+  --radius: 16px;
 }

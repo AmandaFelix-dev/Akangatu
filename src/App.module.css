@@ -1,74 +1,74 @@
 .app {
-  max-width:1440px;
-  margin:auto
+  max-width: 1440px;
+  margin: auto;
 }
 .header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:30px 6%;
-  border-bottom:1px solid #193d3225
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 6%;
+  border-bottom: 1px solid #193d3225;
 }
 .logo {
-  border:0;
-  background:none;
-  font-family:Georgia,serif;
-  font-size:31px;
-  letter-spacing:-1px;
-  display:flex;
-  align-items:center;
-  gap:9px
+  border: 0;
+  background: none;
+  font-family: var(--font-main);
+  font-size: 31px;
+  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
 }
-.logo sup {
-  font-family:Arial,sans-serif;
-  font-size:10px;
-  align-self:flex-start;
-  margin-top:7px
+.logoImage {
+  display: block;
+  width: 180px;
+  max-width: 100%;
+  height: auto;
 }
 .logo:disabled {
-  opacity:1
+  opacity: 1;
 }
 .navigation {
-  display:flex;
-  gap:30px;
-  font-size:12px
+  display: flex;
+  gap: 30px;
+  font-size: 12px;
 }
 .navigation button {
-  background:none;
-  border:0;
-  font-size:12px;
-  padding:8px 0
+  background: none;
+  border: 0;
+  font-size: 12px;
+  padding: 8px 0;
 }
 .navigation button:hover {
-  text-decoration:underline
+  text-decoration: underline;
 }
 .footer {
-  display:flex;
-  justify-content:space-between;
-  padding:24px 6%;
-  border-top:1px solid #193d3225;
-  font-size:9px;
-  letter-spacing:1.4px;
-  color:#5b6a59
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 6%;
+  border-top: 1px solid #193d3225;
+  font-size: 9px;
+  letter-spacing: 1.4px;
+  color: #5b6a59;
 }
-@media(max-width:600px) {
+@media (max-width: 600px) {
   .header {
-  padding:22px 20px;
-  gap:10px
-}
-.logo {
-  font-size:24px
-}
-.navigation {
-  gap:16px
-}
-.navigation button,.navigation span {
-  font-size:10px
-}
-.footer {
-  padding:22px 20px;
-  gap:20px;
-  font-size:8px
-}
-
+    padding: 22px 20px;
+    gap: 10px;
+  }
+  .logoImage {
+    width: 130px;
+  }
+  .navigation {
+    gap: 16px;
+  }
+  .navigation button,
+  .navigation span {
+    font-size: 10px;
+  }
+  .footer {
+    padding: 22px 20px;
+    gap: 20px;
+    font-size: 8px;
+  }
 }

@@ -1,8 +1,84 @@
-import { THEMES } from '../../data/themes';
-import styles from './HomePage.module.css';
-export function HomePage({ onPlay, onAbout }: {
-    onPlay: () => void;
-    onAbout: () => void;
+import { THEMES } from "../../data/themes";
+import styles from "./HomePage.module.css";
+export function HomePage({
+  onPlay,
+  onAbout,
+}: {
+  onPlay: () => void;
+  onAbout: () => void;
 }) {
-    return <main className={styles.home}><section className={styles.hero}><div className={styles.intro}><p className="eyebrow">UM JOGO DE MEMÓRIA & DESCOBERTA</p><h1 tabIndex={-1}>Há um mundo<br />para <em>lembrar.</em></h1><p className={styles.description}>Encontre os pares. Explore a natureza e a cultura em coleções que convidam a olhar mais de perto.</p><button className="primary" onClick={onPlay}>Começar a jogar <span>↗</span></button><button className={styles.manual} onClick={onAbout}>Como se joga? →</button><div className={styles.note}>✳ Um tempo para você. Uma descoberta a cada par.</div></div><div className={styles.collection}><div className={styles.orbit}/><span className={styles.topLabel}>PEQUENOS ENCONTROS, GRANDES MEMÓRIAS</span><img className={styles.backCard} src={THEMES[2].coverImage} alt="Coleção de xilogravura"/><img className={styles.frontCard} src={THEMES[0].coverImage} alt="Onça-pintada ilustrada na coleção Fauna"/><div className={styles.stamp}>Feito para<br /><em>descobrir</em><span>✧</span></div><span className={styles.bottomLabel}>01 / FAUNA · NOSSA PRIMEIRA COLEÇÃO</span></div></section><section className={styles.steps} aria-label="Como funciona"><p>O prazer está<br />nos <em>encontros.</em></p><article><span>01 / EXPLORE</span><h2>Escolha seu universo</h2><p>Coleções inspiradas na vida e na arte.</p></article><article><span>02 / CONECTE</span><h2>Encontre os pares</h2><p>Olhe com atenção. Confie na sua memória.</p></article><article><span>03 / CULTIVE</span><h2>Veja sua evolução</h2><p>Cada partida conta uma nova história.</p></article></section></main>;
+  return (
+    <main className={styles.home}>
+      <section className={styles.hero}>
+        <div className={styles.intro}>
+          <p className="eyebrow">UM JOGO DE MEMÓRIA & DESCOBERTA</p>
+          <h1 tabIndex={-1}>
+            Há um mundo
+            <br />
+            para <em>lembrar.</em>
+          </h1>
+          <p className={styles.description}>
+            Encontre os pares. Explore a natureza e a cultura em coleções que
+            convidam a olhar mais de perto.
+          </p>
+          <button className="primary" onClick={onPlay}>
+            Começar a jogar <span>↗</span>
+          </button>
+          <button className={styles.manual} onClick={onAbout}>
+            Como se joga? →
+          </button>
+          <div className={styles.note}>
+            ✳ Um tempo para você. Uma descoberta a cada par.
+          </div>
+        </div>
+        <div className={styles.collection}>
+          <div className={styles.orbit} />
+          <span className={styles.topLabel}>
+            PEQUENOS ENCONTROS, GRANDES MEMÓRIAS
+          </span>
+          <img
+            className={styles.backCard}
+            src={THEMES[2].coverImage}
+            alt="Coleção de xilogravura"
+          />
+          <img
+            className={styles.frontCard}
+            src={THEMES[0].coverImage}
+            alt="Onça-pintada ilustrada na coleção Fauna"
+          />
+          <div className={styles.stamp}>
+            Feito para
+            <br />
+            <em>descobrir</em>
+            <span>✧</span>
+          </div>
+          <span className={styles.bottomLabel}>
+            01 / FAUNA · NOSSA PRIMEIRA COLEÇÃO
+          </span>
+        </div>
+      </section>
+      <section className={styles.steps} aria-label="Como funciona">
+        <p>
+          O prazer está
+          <br />
+          nos <em>encontros.</em>
+        </p>
+        <article>
+          <span>01 / EXPLORE</span>
+          <h2>Escolha seu universo</h2>
+          <p>Coleções inspiradas na vida e na arte.</p>
+        </article>
+        <article>
+          <span>02 / CONECTE</span>
+          <h2>Encontre os pares</h2>
+          <p>Olhe com atenção. Confie na sua memória.</p>
+        </article>
+        <article>
+          <span>03 / CULTIVE</span>
+          <h2>Veja sua evolução</h2>
+          <p>Cada partida conta uma nova história.</p>
+        </article>
+      </section>
+    </main>
+  );
 }
