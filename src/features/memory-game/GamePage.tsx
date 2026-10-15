@@ -73,7 +73,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
       </div>
       <GameStatus elapsed={game.state.elapsed} attempts={game.state.attempts}
         found={found} total={difficulty.pairs} complete={game.complete} onPause={() => setPaused(true)} />
-      <Board cards={game.state.cards} onFlip={game.flip}
+      <Board cards={game.state.cards} onFlip={game.flip} concealed={game.paused && !game.complete}
         disabled={game.paused || suspended || !started || game.state.selected.length === 2} />
       <p className="game-hint" role="status">
         {found > 0 ? `${found} pares encontrados. Continue explorando.` : 'Vire duas cartas e descubra os encontros.'}
@@ -83,7 +83,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
           mode={config.mode} onStart={start} onCancel={onExit} />
       )}
       {game.paused && !game.complete && (
-        <PauseModal onContinue={() => setPaused(false)} onRestart={restart} onExit={onExit} />
+        <PauseModal canRestart={config.mode !== 'challenge'} onContinue={() => setPaused(false)} onRestart={restart} onExit={onExit} />
       )}
       {game.complete && (
         <CompletionNotice elapsed={game.state.elapsed} attempts={game.state.attempts}
