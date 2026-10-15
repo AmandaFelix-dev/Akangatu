@@ -1,0 +1,44 @@
+.status {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-top: 1px solid var(--color-line-status);
+  border-bottom: 1px solid var(--color-line-status);
+  padding: 16px 0;
+  margin: 8px 0 25px;
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+}
+.status div {
+  display: grid;
+  gap: 7px;
+}
+.status div span {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+.status strong {
+  font-size: 20px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+/* Seletor com elemento para vencer o padding e o gap do Button. */
+.status button {
+  margin-left: auto;
+  padding: 12px;
+  gap: 5px;
+}
+@media (min-width: 701px) {
+  .status {
+    gap: 35px;
+  }
+  .status strong {
+    font-size: 24px;
+  }
+  .status button {
+    padding: 12px 18px;
+    gap: 35px;
+  }
+}

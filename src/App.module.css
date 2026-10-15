@@ -1,13 +1,14 @@
 .app {
-  max-width: 1440px;
+  max-width: var(--width-app);
   margin: auto;
 }
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 6%;
-  border-bottom: 1px solid #193d3225;
+  gap: 10px;
+  padding: 22px var(--page-gutter);
+  border-bottom: 1px solid var(--color-line-header);
 }
 .logo {
   border: 0;
@@ -21,7 +22,7 @@
 }
 .logoImage {
   display: block;
-  width: 180px;
+  width: 130px;
   max-width: 100%;
   height: auto;
 }
@@ -30,14 +31,17 @@
 }
 .navigation {
   display: flex;
-  gap: 30px;
+  gap: 16px;
   font-size: 12px;
 }
 .navigation button {
   background: none;
   border: 0;
-  font-size: 12px;
+  font-size: 10px;
   padding: 8px 0;
+}
+.navigation span {
+  font-size: 10px;
 }
 .navigation button:hover {
   text-decoration: underline;
@@ -45,30 +49,31 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  padding: 24px 6%;
-  border-top: 1px solid #193d3225;
-  font-size: 9px;
+  gap: 20px;
+  padding: 22px var(--page-gutter);
+  border-top: 1px solid var(--color-line-header);
+  font-size: 8px;
   letter-spacing: 1.4px;
-  color: #5b6a59;
+  color: var(--color-text-muted-footer);
 }
-@media (max-width: 600px) {
+@media (min-width: 601px) {
   .header {
-    padding: 22px 20px;
-    gap: 10px;
+    gap: normal;
+    padding: 30px var(--page-gutter-fluid);
   }
   .logoImage {
-    width: 130px;
+    width: 180px;
   }
   .navigation {
-    gap: 16px;
+    gap: 30px;
   }
   .navigation button,
   .navigation span {
-    font-size: 10px;
+    font-size: 12px;
   }
   .footer {
-    padding: 22px 20px;
-    gap: 20px;
-    font-size: 8px;
+    gap: normal;
+    padding: 24px var(--page-gutter-fluid);
+    font-size: 9px;
   }
 }

@@ -1,0 +1,98 @@
+/* revealed e matched são globais: os testes os usam como ganchos. */
+.card {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  aspect-ratio: 2/3;
+  perspective: 900px;
+  position: relative;
+  transition: transform var(--duration-fast);
+}
+.card:not(:disabled):hover {
+  transform: translateY(-3px);
+}
+.inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--duration-flip);
+}
+.card:global(.revealed) .inner {
+  transform: rotateY(180deg);
+}
+.back,
+.front {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  backface-visibility: hidden;
+  box-shadow: var(--shadow-card);
+}
+.back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: var(--color-card-gold);
+  background-color: var(--color-card-back);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    var(--color-card-stripe) 8px,
+    var(--color-card-stripe) 9px
+  );
+  border: 4px double var(--color-card-frame);
+}
+.back > span {
+  font-family: var(--font-main);
+  font-size: 32px;
+}
+.back small {
+  font-size: 6px;
+  letter-spacing: 1px;
+}
+.front {
+  transform: rotateY(180deg);
+  background: var(--color-card-front);
+  border: 3px solid var(--white);
+}
+.front img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+.card:global(.matched) .front {
+  border-color: var(--color-matched);
+}
+.check {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: var(--ink);
+  color: var(--color-on-ink);
+  width: 23px;
+  height: 23px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-circle);
+  font-size: 12px;
+}
+@media (min-width: 701px) {
+  .back {
+    border-width: 6px;
+  }
+  .back > span {
+    font-size: 50px;
+  }
+  .back small {
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+}

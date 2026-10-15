@@ -1,4 +1,5 @@
 import { THEMES } from "../../data/themes";
+import { Button } from "../../components/Button/Button";
 import styles from "./HomePage.module.css";
 export function HomePage({
   onPlay,
@@ -11,7 +12,7 @@ export function HomePage({
     <main className={styles.home}>
       <section className={styles.hero}>
         <div className={styles.intro}>
-          <p className="eyebrow">UM JOGO DE MEMÓRIA & DESCOBERTA</p>
+          <p className={styles.eyebrow}>UM JOGO DE MEMÓRIA & DESCOBERTA</p>
           <h1 tabIndex={-1}>
             Há um mundo
             <br />
@@ -21,9 +22,9 @@ export function HomePage({
             Encontre os pares. Explore a natureza e a cultura em coleções que
             convidam a olhar mais de perto.
           </p>
-          <button className="primary" onClick={onPlay}>
+          <Button onClick={onPlay}>
             Começar a jogar <span>↗</span>
-          </button>
+          </Button>
           <button className={styles.manual} onClick={onAbout}>
             Como se joga? →
           </button>

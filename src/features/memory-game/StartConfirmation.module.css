@@ -1,3 +1,7 @@
+.eyebrow {
+  composes: eyebrow from "../../styles/typography.module.css";
+}
+
 .summary {
   display: grid;
   gap: 0;
@@ -11,11 +15,11 @@
   justify-content: space-between;
   gap: 4px 16px;
   padding: 12px 0;
-  border-bottom: 1px solid #193d3226;
+  border-bottom: 1px solid var(--color-line-table);
 }
 
 .item:first-child {
-  border-top: 1px solid #193d3226;
+  border-top: 1px solid var(--color-line-table);
 }
 
 .item dt {
@@ -27,7 +31,7 @@
 
 .item dd {
   margin: 0;
-  font-family: Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 18px;
 }
 

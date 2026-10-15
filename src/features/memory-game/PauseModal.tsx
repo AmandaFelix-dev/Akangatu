@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal } from "../../components/Modal/Modal";
+import { Button } from "../../components/Button/Button";
 export function PauseModal({
   onContinue,
   onRestart,
@@ -29,36 +30,38 @@ export function PauseModal({
             Seu progresso nesta partida será descartado. Partidas anteriores
             continuam salvas.
           </p>
-          <button
-            className="primary full"
+          <Button
+            fullWidth
             onClick={confirm === "restart" ? onRestart : onExit}
           >
             {confirm === "restart" ? "Sim, reiniciar" : "Sim, sair"}
-          </button>
-          <button className="text-button full" onClick={() => setConfirm(null)}>
+          </Button>
+          <Button variant="text" fullWidth onClick={() => setConfirm(null)}>
             Cancelar
-          </button>
+          </Button>
         </>
       ) : (
         <>
           <p>As cartas esperam. O cronômetro está pausado.</p>
-          <button className="primary full" onClick={onContinue}>
+          <Button fullWidth onClick={onContinue}>
             Continuar →
-          </button>
+          </Button>
           {canRestart && (
-            <button
-              className="secondary full"
+            <Button
+              variant="secondary"
+              fullWidth
               onClick={() => setConfirm("restart")}
             >
               Reiniciar
-            </button>
+            </Button>
           )}
-          <button
-            className="text-button full"
+          <Button
+            variant="text"
+            fullWidth
             onClick={() => setConfirm("exit")}
           >
             Sair
-          </button>
+          </Button>
         </>
       )}
     </Modal>

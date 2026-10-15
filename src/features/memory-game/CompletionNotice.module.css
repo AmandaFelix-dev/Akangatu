@@ -4,8 +4,8 @@
   margin: 0 0 16px;
   padding: 12px 16px;
   border-left: 3px solid var(--orange);
-  border-radius: 0 5px 5px 0;
-  background: #193d320b;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--color-tint);
 }
 
 .records p {

@@ -1,4 +1,6 @@
 import type { ButtonHTMLAttributes } from 'react';
-export function Button({ variant = 'primary', className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant?: 'primary' | 'secondary';
-}) { return <button className={variant + ' ' + className} {...props}/>; }
+import styles from './Button.module.css';
+export function Button({ variant = 'primary', fullWidth = false, className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement> & {
+    variant?: 'primary' | 'secondary' | 'text';
+    fullWidth?: boolean;
+}) { return <button className={[styles[variant], fullWidth ? styles.fullWidth : '', className].filter(Boolean).join(' ')} {...props}/>; }

@@ -5,6 +5,7 @@ import { GamePage } from "./features/memory-game/GamePage";
 import { ProfilePage } from "./features/profile/ProfilePage";
 import { AboutPage } from "./features/about/AboutPage";
 import { Modal } from "./components/Modal/Modal";
+import { Button } from "./components/Button/Button";
 import { resolveRoute, ROUTES } from "./app/routes";
 import type { AppRoute } from "./app/routes";
 import type { GameConfig } from "./types/game";
@@ -115,15 +116,16 @@ export default function App() {
             Seu progresso nesta partida será descartado. Os registros anteriores
             continuam salvos.
           </p>
-          <button className="primary full" onClick={() => exitTo(pendingRoute)}>
+          <Button fullWidth onClick={() => exitTo(pendingRoute)}>
             Sim, sair
-          </button>
-          <button
-            className="text-button full"
+          </Button>
+          <Button
+            variant="text"
+            fullWidth
             onClick={() => setPendingRoute(null)}
           >
             Continuar jogando
-          </button>
+          </Button>
         </Modal>
       )}
       <footer className={styles.footer}>

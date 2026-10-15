@@ -1,0 +1,46 @@
+/* Primário e secundário hoje têm o mesmo visual de madeira. */
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  padding: 17px 24px;
+  border: 1px solid var(--color-wood-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-wood);
+  background-image: var(--wood-grain);
+  background-size: var(--wood-grain-size);
+  color: var(--color-wood-text);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-wood);
+  transition:
+    background var(--duration-fast),
+    transform var(--duration-fast);
+}
+.primary:hover {
+  transform: translateY(-2px);
+}
+.primary:not(:disabled):hover,
+.secondary:not(:disabled):hover {
+  background-color: var(--color-wood-hover);
+}
+.primary:not(:disabled):active,
+.secondary:not(:disabled):active {
+  background-color: var(--color-wood-active);
+  box-shadow: var(--shadow-wood-pressed);
+}
+.text {
+  border: 0;
+  background: none;
+  padding: 12px 0;
+  font-size: 14px;
+}
+.text:hover {
+  text-decoration: underline;
+}
+.fullWidth {
+  width: 100%;
+  margin-top: 12px;
+}

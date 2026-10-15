@@ -11,6 +11,7 @@ import { GameStatus } from './GameStatus'
 import { PauseModal } from './PauseModal'
 import { CompletionNotice } from './CompletionNotice'
 import { StartConfirmation } from './StartConfirmation'
+import styles from './GamePage.module.css'
 
 interface GamePageProps {
   config: GameConfig
@@ -63,19 +64,19 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
   const start = () => { setStarted(true); onStarted() }
 
   return (
-    <main className="page game-page">
-      <div className="game-heading">
+    <main className={styles.page}>
+      <div className={styles.heading}>
         <div>
-          <p className="eyebrow">03 / ENCONTRE OS PARES</p>
+          <p className={styles.eyebrow}>03 / ENCONTRE OS PARES</p>
           <h1 tabIndex={-1}>{theme.name}<em> em memória.</em></h1>
         </div>
-        <span className="badge-inline">{difficulty.name} · {difficulty.pairs} pares</span>
+        <span className={styles.badge}>{difficulty.name} · {difficulty.pairs} pares</span>
       </div>
       <GameStatus elapsed={game.state.elapsed} attempts={game.state.attempts}
         found={found} total={difficulty.pairs} complete={game.complete} onPause={() => setPaused(true)} />
       <Board cards={game.state.cards} onFlip={game.flip} concealed={game.paused && !game.complete}
         disabled={game.paused || suspended || !started || game.state.selected.length === 2} />
-      <p className="game-hint" role="status">
+      <p className={styles.hint} role="status">
         {found > 0 ? `${found} pares encontrados. Continue explorando.` : 'Vire duas cartas e descubra os encontros.'}
       </p>
       {!started && (

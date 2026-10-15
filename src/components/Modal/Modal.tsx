@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef } from 'react'
 import type { ReactNode } from 'react'
+import styles from './Modal.module.css'
 
 interface ModalProps {
   title: string
@@ -24,11 +25,11 @@ export function Modal({ title, children, onClose }: ModalProps) {
   return (
     <dialog
       ref={ref}
-      className="modal"
+      className={styles.modal}
       aria-labelledby={titleId}
       onCancel={event => { event.preventDefault(); onClose?.() }}
     >
-      {onClose && <button className="modal-close" aria-label="Fechar" onClick={onClose}>×</button>}
+      {onClose && <button className={styles.close} aria-label="Fechar" onClick={onClose}>×</button>}
       <h2 id={titleId}>{title}</h2>
       {children}
     </dialog>

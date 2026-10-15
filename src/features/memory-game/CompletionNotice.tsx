@@ -1,4 +1,5 @@
 import { Modal } from '../../components/Modal/Modal'
+import { Button } from '../../components/Button/Button'
 import { formatTime } from '../../utils/formatTime'
 import type { RecordComparison } from '../../utils/calculateRecords'
 import styles from './CompletionNotice.module.css'
@@ -37,10 +38,10 @@ export function CompletionNotice({ elapsed, attempts, difficultyName, comparison
       <p>{persistent
         ? 'Seu desempenho foi salvo neste dispositivo.'
         : 'O armazenamento não está disponível. Seu desempenho fica disponível nesta sessão.'}</p>
-      <button className="primary full" onClick={onRestart}>Jogar novamente</button>
-      <button className="secondary full" onClick={onExit}>Novo jogo</button>
-      <button className="secondary full" onClick={onHome}>Voltar ao início</button>
-      <button className="text-button full" onClick={onPerformance}>Ver desempenho →</button>
+      <Button fullWidth onClick={onRestart}>Jogar novamente</Button>
+      <Button variant="secondary" fullWidth onClick={onExit}>Novo jogo</Button>
+      <Button variant="secondary" fullWidth onClick={onHome}>Voltar ao início</Button>
+      <Button variant="text" fullWidth onClick={onPerformance}>Ver desempenho →</Button>
     </Modal>
   )
 }

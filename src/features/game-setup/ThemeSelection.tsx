@@ -3,6 +3,8 @@ import { THEMES } from "../../data/themes";
 import type { Theme } from "../../types/theme";
 import type { GameConfig } from "../../types/game";
 import { DifficultySelection } from "./DifficultySelection";
+import { Button } from "../../components/Button/Button";
+import styles from "./ThemeSelection.module.css";
 export function ThemeSelection({
   onStart,
   onBack,
@@ -12,35 +14,35 @@ export function ThemeSelection({
 }) {
   const [selected, setSelected] = useState<Theme | null>(null);
   return (
-    <main className="page">
-      <button className="text-button" onClick={onBack}>
+    <main className={styles.page}>
+      <Button variant="text" className={styles.back} onClick={onBack}>
         ← Voltar ao início
-      </button>
-      <p className="eyebrow">01 / ESCOLHA A COLEÇÃO</p>
+      </Button>
+      <p className={styles.eyebrow}>01 / ESCOLHA A COLEÇÃO</p>
       <h1 tabIndex={-1}>
         Por onde vamos <em>explorar?</em>
       </h1>
-      <p className="lead">
+      <p className={styles.lead}>
         Cada universo guarda algo para descobrir. Comece pela fauna.
       </p>
-      <div className="theme-grid">
+      <div className={styles.grid}>
         {THEMES.map((theme, index) => (
           <button
             key={theme.id}
-            className={"theme-card " + (!theme.isUnlocked ? "locked" : "")}
+            className={styles.card + " " + (!theme.isUnlocked ? styles.locked : "")}
             disabled={!theme.isUnlocked}
             onClick={() => setSelected(theme)}
           >
-            <div className="theme-image">
+            <div className={styles.image}>
               <img
                 src={theme.coverImage}
                 alt={"Ilustração da coleção " + theme.name}
               />
-              <span className="badge">
+              <span className={styles.badge}>
                 {theme.isUnlocked ? "DISPONÍVEL" : "BLOQUEADO"}
               </span>
             </div>
-            <div className="theme-caption">
+            <div className={styles.caption}>
               <span>0{index + 1} / COLEÇÃO</span>
               <h2>
                 {theme.name} <span>{theme.isUnlocked ? "↗" : "◇"}</span>
@@ -54,7 +56,7 @@ export function ThemeSelection({
           </button>
         ))}
       </div>
-      <p className="collection-note">
+      <p className={styles.note}>
         ✳ Novas coleções e formas de desbloquear chegam nas próximas etapas.
       </p>
       {selected && (

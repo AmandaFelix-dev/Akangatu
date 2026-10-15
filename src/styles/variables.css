@@ -1,12 +1,120 @@
+/*
+ * Breakpoints (variáveis não funcionam em media queries), sempre min-width:
+ * 421px e 801px na Home; 601px no cabeçalho e rodapé; 701px nas demais telas
+ * (CompletionNotice e StartConfirmation já usavam 700px).
+ */
 :root {
   --ink: #193d32;
+  --ink-rgb: 25 61 50;
   --paper: #f5f1e7;
   --white: #fffdf7;
   --green: #193d32;
   --orange: #b64e32;
   --font-main: "Poppins", sans-serif;
   --font-display: var(--font-main);
+  --font-serif: Georgia, serif;
   --color-cream: var(--paper);
   --color-text: var(--ink);
   --radius: 16px;
+
+  --color-focus: var(--orange);
+  --color-on-ink: white;
+
+  /* Texto secundário: tons quase iguais, candidatos a unificar. */
+  --color-text-muted: #5a695b;
+  --color-text-muted-difficulty: #576353;
+  --color-text-muted-theme: #596354;
+  --color-text-muted-note: #667163;
+  --color-text-muted-table: #63705e;
+  --color-text-muted-footer: #5b6a59;
+  --color-text-muted-home: #68705c;
+  --color-text-warm: #7a705c;
+
+  /* Fundos claros: tons quase iguais, candidatos a unificar. */
+  --color-surface-theme: #e4e6d9;
+  --color-surface-locked: #e8e6df;
+  --color-surface-selected: #e6eadc;
+  --color-surface-soft: #e7eadf;
+  --color-surface-orbit: #e7e8d9;
+
+  /* Transparências do ink: acompanham o --ink-rgb; quase iguais, candidatas a unificar. */
+  --color-texture-dot: rgb(var(--ink-rgb) / 3.5%);
+  --color-tint: rgb(var(--ink-rgb) / 4.3%);
+  --color-line-header: rgb(var(--ink-rgb) / 14.5%);
+  --color-line-table: rgb(var(--ink-rgb) / 15%);
+  --color-line-orbit: rgb(var(--ink-rgb) / 15.7%);
+  --color-line-steps: rgb(var(--ink-rgb) / 17%);
+  --color-line-status: rgb(var(--ink-rgb) / 17.6%);
+  --color-line: rgb(var(--ink-rgb) / 19%);
+  --color-line-strong: rgb(var(--ink-rgb) / 20%);
+  --color-line-modal: rgb(var(--ink-rgb) / 25%);
+  --color-backdrop: #102a23a6;
+
+  --color-card-back: var(--ink);
+  --color-card-front: #e9e4d6;
+  --color-card-gold: #e0ca8a;
+  --color-card-stripe: #e0ca8a0b;
+  --color-card-frame: #b4ad7c;
+  --color-matched: #698050;
+
+  --color-wood: #785033;
+  --color-wood-hover: #654027;
+  --color-wood-active: #55351f;
+  --color-wood-border: #51331f;
+  --color-wood-text: #fff8e9;
+  --wood-grain:
+    repeating-radial-gradient(
+      ellipse at 15% -40%,
+      transparent 0 7px,
+      rgb(28 18 8 / 14%) 8px,
+      transparent 10px 18px
+    ),
+    repeating-linear-gradient(
+      3deg,
+      transparent 0 4px,
+      rgb(255 245 220 / 10%) 5px,
+      transparent 6px 11px,
+      rgb(28 18 8 / 10%) 12px,
+      transparent 13px 20px
+    );
+  --wood-grain-size:
+    240px 100%,
+    180px 100%;
+
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 6px;
+  --radius-card: 7px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 30px;
+  --radius-circle: 50%;
+
+  --shadow-card: 0 4px 8px rgb(var(--ink-rgb) / 9.4%);
+  --shadow-raised: 0 15px 30px rgb(var(--ink-rgb) / 7%);
+  --shadow-modal: 0 25px 100px #0003;
+  --shadow-photo-front: 0 22px 40px rgb(var(--ink-rgb) / 20%);
+  --shadow-photo-back: 0 15px 25px rgb(var(--ink-rgb) / 12.5%);
+  --shadow-wood:
+    inset 0 1px 0 rgb(255 238 205 / 25%),
+    inset 0 -3px 0 rgb(45 25 12 / 25%),
+    0 3px 5px rgb(45 25 12 / 15%);
+  --shadow-wood-pressed: inset 0 2px 4px rgb(45 25 12 / 35%);
+
+  --duration-fast: 0.2s;
+  --duration-base: 0.25s;
+  --duration-flip: 0.4s;
+
+  --z-raised: 1;
+  --z-sticky: 2;
+
+  --width-app: 1440px;
+  --width-page: 1140px;
+  --width-game: 970px;
+  --width-board: 650px;
+  --width-lead: 650px;
+  --width-modal: 500px;
+  --page-gutter: 20px;
+  --page-gutter-wide: 40px;
+  --page-gutter-fluid: 6%;
 }
