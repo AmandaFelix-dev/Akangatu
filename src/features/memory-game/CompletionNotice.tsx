@@ -1,12 +1,12 @@
 import { Modal } from '../../components/Modal/Modal'
 import { Button } from '../../components/Button/Button'
 import { formatTime } from '../../utils/formatTime'
+import { FIRST_MATCH_MESSAGE } from '../../data/texts'
 import type { RecordComparison } from '../../utils/calculateRecords'
 import styles from './CompletionNotice.module.css'
 interface CompletionNoticeProps {
   elapsed: number
   attempts: number
-  difficultyName: string
   comparison: RecordComparison | null
   persistent: boolean
   onRestart: () => void
@@ -15,9 +15,9 @@ interface CompletionNoticeProps {
   onPerformance: () => void
 }
 
-function recordMessages(comparison: RecordComparison | null, difficultyName: string) {
+function recordMessages(comparison: RecordComparison | null) {
   if (!comparison) return []
-  if (comparison.first) return [`Primeira partida concluída no ${difficultyName}.`]
+  if (comparison.first) return [FIRST_MATCH_MESSAGE]
   const messages: string[] = []
   if (comparison.previousTime !== null) messages.push(`Novo recorde de tempo! Antes: ${formatTime(comparison.previousTime)}`)
   if (comparison.previousAttempts !== null) messages.push(`Novo recorde de tentativas! Antes: ${comparison.previousAttempts}`)
@@ -25,8 +25,8 @@ function recordMessages(comparison: RecordComparison | null, difficultyName: str
 }
 
 // Theme unlock progress awaits the unlock rules.
-export function CompletionNotice({ elapsed, attempts, difficultyName, comparison, persistent, onRestart, onExit, onHome, onPerformance }: CompletionNoticeProps) {
-  const messages = recordMessages(comparison, difficultyName)
+export function CompletionNotice({ elapsed, attempts, comparison, persistent, onRestart, onExit, onHome, onPerformance }: CompletionNoticeProps) {
+  const messages = recordMessages(comparison)
   return (
     <Modal title="Coleção encontrada!">
       <p>Você encontrou todos os pares em {formatTime(elapsed)}, com {attempts} tentativas.</p>

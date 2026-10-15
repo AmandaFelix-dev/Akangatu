@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { GameConfig } from '../../types/game'
 import { DIFFICULTIES } from '../../data/difficulties'
 import { THEMES } from '../../data/themes'
+import { difficultySummary } from '../../data/texts'
 import { loadHistory, saveMatch } from '../../services/history.service'
 import { calculateRecords, compareWithRecords } from '../../utils/calculateRecords'
 import type { RecordComparison } from '../../utils/calculateRecords'
@@ -70,7 +71,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
           <p className={styles.eyebrow}>03 / ENCONTRE OS PARES</p>
           <h1 tabIndex={-1}>{theme.name}<em> em memória.</em></h1>
         </div>
-        <span className={styles.badge}>{difficulty.name} · {difficulty.pairs} pares</span>
+        <span className={styles.badge}>{difficultySummary(config.difficulty)}</span>
       </div>
       <GameStatus elapsed={game.state.elapsed} attempts={game.state.attempts}
         found={found} total={difficulty.pairs} complete={game.complete} onPause={() => setPaused(true)} />
@@ -80,7 +81,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
         {found > 0 ? `${found} pares encontrados. Continue explorando.` : 'Vire duas cartas e descubra os encontros.'}
       </p>
       {!started && (
-        <StartConfirmation themeName={theme.name} difficultyName={difficulty.name} pairs={difficulty.pairs}
+        <StartConfirmation themeName={theme.name} difficulty={config.difficulty}
           mode={config.mode} onStart={start} onCancel={onExit} />
       )}
       {game.paused && !game.complete && (
@@ -88,7 +89,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
       )}
       {game.complete && (
         <CompletionNotice elapsed={game.state.elapsed} attempts={game.state.attempts}
-          difficultyName={difficulty.name} comparison={comparison} persistent={persistent}
+          comparison={comparison} persistent={persistent}
           onRestart={restart} onExit={onExit} onHome={onHome} onPerformance={onPerformance} />
       )}
     </main>

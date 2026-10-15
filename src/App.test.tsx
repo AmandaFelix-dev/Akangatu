@@ -32,8 +32,8 @@ describe('Main journey', () => {
         await user.click(screen.getByRole('button', { name: /Começar a jogar/ }));
         await user.click(await screen.findByRole('button', { name: /Fauna/ }));
         expect(screen.getByRole('dialog')).toBeTruthy();
-        expect(screen.getByRole('radio', { name: /Fácil/ })).toBeTruthy();
-        await user.click(screen.getByRole('button', { name: /Iniciar partida/ }));
+        expect(screen.getByRole('radio', { name: /8 cartas/ })).toBeTruthy();
+        await user.click(screen.getByRole('button', { name: /Continuar/ }));
         await user.click(screen.getByRole('button', { name: /Começar/ }));
         await screen.findByRole('button', { name: 'Virar carta 1' });
         expect(document.querySelectorAll('.memory-card')).toHaveLength(8);

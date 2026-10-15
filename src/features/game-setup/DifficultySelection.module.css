@@ -33,3 +33,10 @@
   font-size: 12px;
   color: var(--color-text-muted-difficulty);
 }
+.option.single input {
+  grid-row: auto;
+}
+.option.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
