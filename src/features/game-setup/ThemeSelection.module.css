@@ -10,9 +10,6 @@
 .lead {
   composes: lead from "../../styles/typography.module.css";
 }
-.note {
-  composes: note from "../../styles/typography.module.css";
-}
 .grid {
   display: grid;
   grid-template-columns: 1fr;

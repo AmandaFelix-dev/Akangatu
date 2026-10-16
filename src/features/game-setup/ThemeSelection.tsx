@@ -23,7 +23,7 @@ export function ThemeSelection({
         Por onde vamos <em>explorar?</em>
       </h1>
       <p className={styles.lead}>
-        Cada universo guarda algo para descobrir. Comece pela fauna.
+        Cada universo guarda algo para descobrir.
       </p>
       <div className={styles.grid}>
         {THEMES.map((theme, index) => (
@@ -56,9 +56,6 @@ export function ThemeSelection({
           </button>
         ))}
       </div>
-      <p className={styles.note}>
-        ✳ Novas coleções e formas de desbloquear chegam nas próximas etapas.
-      </p>
       {selected && (
         <DifficultySelection
           theme={selected}

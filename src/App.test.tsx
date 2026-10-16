@@ -69,7 +69,7 @@ describe('Main journey', () => {
         await user.click(screen.getByRole('button', { name: /Desempenho/ }));
         expect(await screen.findByText('Seu primeiro encontro está por vir.')).toBeTruthy();
         await user.click(screen.getByRole('button', { name: /Começar a jogar/ }));
-        const locked = await screen.findByRole('button', { name: /Flora/ }) as HTMLButtonElement;
+        const locked = await screen.findByRole('button', { name: /Xilogravura/ }) as HTMLButtonElement;
         expect(locked.disabled).toBe(true);
     });
 });
