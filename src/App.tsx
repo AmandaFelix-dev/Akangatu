@@ -10,7 +10,6 @@ import { resolveRoute, ROUTES } from "./app/routes";
 import type { AppRoute } from "./app/routes";
 import type { GameConfig } from "./types/game";
 import styles from "./App.module.css";
-import logo from './assets/logo.svg'
 
 export default function App() {
   const [route, setRoute] = useState(() => resolveRoute(location.hash));
@@ -54,33 +53,10 @@ export default function App() {
 
   return (
     <div className={styles.app}>
-      <header className={styles.header}>
-        <button
-          className={styles.logo}
-          disabled={route === ROUTES.game && !!config}
-          onClick={() => navigate(ROUTES.home)}
-        >
-          {/* ✳ Akangatu<sup>®</sup> */}
-          <img src={logo} alt="Akangatu — início" className={styles.logoImage} />
-        </button>
-        <nav aria-label="Navegação principal" className={styles.navigation}>
-          {route !== ROUTES.game ? (
-            <>
-              <button onClick={() => navigate(ROUTES.manual)}>
-                Manual / Sobre
-              </button>
-              <button onClick={() => navigate(ROUTES.player)}>
-                Desempenho ↗
-              </button>
-            </>
-          ) : (
-            <span>Uma descoberta de cada vez.</span>
-          )}
-        </nav>
-      </header>
       {route === ROUTES.home && (
         <HomePage
           onPlay={() => navigate(ROUTES.themes)}
+          onPerformance={() => navigate(ROUTES.player)}
           onAbout={() => navigate(ROUTES.manual)}
         />
       )}
@@ -128,10 +104,6 @@ export default function App() {
           </Button>
         </Modal>
       )}
-      <footer className={styles.footer}>
-        <span>AKANGATU · JOGO DA MEMÓRIA</span>
-        <span>Observe. Conecte. Descubra.</span>
-      </footer>
     </div>
   );
 }

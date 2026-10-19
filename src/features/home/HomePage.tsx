@@ -1,85 +1,46 @@
-import { THEMES } from "../../data/themes";
-import { Button } from "../../components/Button/Button";
+import { MainBackground } from "../../components/MainBackground/MainBackground";
+import { HOME_LABELS } from "../../data/texts";
+import logo from "../../assets/logo.svg";
+import startButton from "../../assets/layout/btn/start.svg";
+import performanceButton from "../../assets/layout/btn/perfomance.svg";
+import aboutButton from "../../assets/layout/btn/about.svg";
 import styles from "./HomePage.module.css";
 export function HomePage({
   onPlay,
+  onPerformance,
   onAbout,
 }: {
   onPlay: () => void;
+  onPerformance: () => void;
   onAbout: () => void;
 }) {
   return (
     <main className={styles.home}>
-      <section className={styles.hero}>
-        <div className={styles.intro}>
-          <p className={styles.eyebrow}>UM JOGO DE MEMÓRIA & DESCOBERTA</p>
-          <h1 tabIndex={-1}>
-            Há um mundo
-            <br />
-            para <em>lembrar.</em>
-          </h1>
-          <p className={styles.description}>
-            Encontre os pares. Explore a natureza e a cultura em coleções que
-            convidam a olhar mais de perto.
-          </p>
-          <Button onClick={onPlay}>
-            Começar a jogar <span>↗</span>
-          </Button>
-          <button className={styles.manual} onClick={onAbout}>
-            Como se joga? →
-          </button>
-          <div className={styles.note}>
-            ✳ Um tempo para você. Uma descoberta a cada par.
-          </div>
-        </div>
-        <div className={styles.collection}>
-          <div className={styles.orbit} />
-          <span className={styles.topLabel}>
-            PEQUENOS ENCONTROS, GRANDES MEMÓRIAS
-          </span>
-          <img
-            className={styles.backCard}
-            src={THEMES[2].coverImage}
-            alt="Coleção de xilogravura"
-          />
-          <img
-            className={styles.frontCard}
-            src={THEMES[0].coverImage}
-            alt="Onça-pintada ilustrada na coleção Fauna"
-          />
-          <div className={styles.stamp}>
-            Feito para
-            <br />
-            <em>descobrir</em>
-            <span>✧</span>
-          </div>
-          <span className={styles.bottomLabel}>
-            01 / FAUNA · NOSSA PRIMEIRA COLEÇÃO
-          </span>
-        </div>
-      </section>
-      <section className={styles.steps} aria-label="Como funciona">
-        <p>
-          O prazer está
-          <br />
-          nos <em>encontros.</em>
-        </p>
-        <article>
-          <span>01 / EXPLORE</span>
-          <h2>Escolha seu universo</h2>
-          <p>Coleções inspiradas na vida e na arte.</p>
-        </article>
-        <article>
-          <span>02 / CONECTE</span>
-          <h2>Encontre os pares</h2>
-          <p>Olhe com atenção. Confie na sua memória.</p>
-        </article>
-        <article>
-          <span>03 / CULTIVE</span>
-          <h2>Veja sua evolução</h2>
-          <p>Cada partida conta uma nova história.</p>
-        </article>
-      </section>
+      <MainBackground />
+      <button
+        className={styles.about}
+        aria-label={HOME_LABELS.about}
+        onClick={onAbout}
+      >
+        <img src={aboutButton} alt="" />
+      </button>
+      <h1 className={styles.logo} tabIndex={-1}>
+        <img src={logo} alt={HOME_LABELS.logo} />
+      </h1>
+      <button
+        className={styles.action}
+        aria-label={HOME_LABELS.start}
+        onClick={onPlay}
+      >
+        <img src={startButton} alt="" />
+      </button>
+      <button
+        className={styles.action}
+        aria-label={HOME_LABELS.performance}
+        onClick={onPerformance}
+      >
+        <img src={performanceButton} alt="" />
+      </button>
     </main>
   );
 }

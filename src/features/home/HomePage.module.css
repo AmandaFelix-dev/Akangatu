@@ -1,208 +1,31 @@
 .home {
-  padding: 0 22px;
-}
-.hero {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  gap: 25px;
-  padding: 45px 0 35px;
-}
-.eyebrow {
-  composes: eyebrow from "../../styles/typography.module.css";
-}
-.intro h1 {
-  font-size: 52px;
-  line-height: 1.04;
-  letter-spacing: -3px;
-}
-.description {
-  max-width: 390px;
-  color: var(--color-text-muted);
-  font-size: 16px;
-  margin: 28px 0 30px;
-}
-.manual {
-  display: block;
-  border: 0;
-  background: none;
-  font-size: 12px;
-  padding: 18px 0;
-}
-.manual:hover {
-  text-decoration: underline;
-}
-.note {
-  margin-top: 20px;
-  font-size: 10px;
-  color: var(--color-text-muted-home);
-  letter-spacing: 0.2px;
-}
-.collection {
   position: relative;
-  min-height: 400px;
-  max-width: 550px;
-  width: 100%;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.orbit {
-  position: absolute;
-  inset: 35px 0;
-  border: 1px solid var(--color-line-orbit);
-  border-radius: var(--radius-circle);
-  transform: rotate(-20deg);
-  background: var(--color-surface-orbit);
-}
-.frontCard {
-  position: relative;
-  width: 240px;
-  max-width: 50%;
-  border-radius: var(--radius-lg);
-  transform: rotate(9deg) translate(25px, 5px);
-  box-shadow: var(--shadow-photo-front);
-  border: 8px solid var(--white);
-}
-.backCard {
-  position: absolute;
-  width: 235px;
-  max-width: 48%;
-  border-radius: var(--radius-lg);
-  transform: rotate(-14deg) translate(-50px, -15px);
-  border: 8px solid var(--white);
-  box-shadow: var(--shadow-photo-back);
-}
-.topLabel,
-.bottomLabel {
-  position: absolute;
-  font-size: 7px;
-  letter-spacing: 1px;
-  z-index: var(--z-raised);
-}
-.topLabel {
-  top: 12px;
-}
-.bottomLabel {
-  bottom: 9px;
-}
-.stamp {
-  position: absolute;
-  right: 0;
-  bottom: 40px;
-  width: 90px;
-  height: 90px;
-  border: 1px solid var(--orange);
-  color: var(--orange);
-  border-radius: var(--radius-circle);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  line-height: 1.5;
-  background: var(--paper);
-  transform: rotate(-12deg);
+  gap: 21px;
+  padding: 172px 20px 40px;
 }
-.stamp em {
-  font-size: 18px;
-}
-.stamp span {
-  font-size: 23px;
-}
-.steps {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  border-top: 1px solid var(--color-line-steps);
-  padding: 32px 0 45px;
-}
-.steps > p {
-  font-family: var(--font-main);
-  font-size: 27px;
-  line-height: 1.3;
+.logo {
+  width: min(306px, 100%);
   margin: 0;
+  line-height: 0;
 }
-.steps > p br {
-  display: none;
+.logo img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
-.steps article {
-  padding-top: 5px;
+.action {
+  border: 0;
+  background: none;
+  padding: 0;
+  line-height: 0;
 }
-.steps article > span {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: var(--color-text-warm);
-}
-.steps h2 {
-  font-family: var(--font-main);
-  font-size: 14px;
-  font-weight: 600;
-  margin: 17px 0 8px;
-}
-.steps article p {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  margin: 0;
-}
-@media (min-width: 421px) {
-  .intro h1 {
-    font-size: 62px;
-  }
-  .collection {
-    min-height: 470px;
-  }
-  .stamp {
-    width: 115px;
-    height: 115px;
-    right: 2px;
-    bottom: 55px;
-  }
-  .stamp em {
-    font-size: 22px;
-  }
-  .backCard {
-    transform: rotate(-14deg) translate(-85px, -18px);
-  }
-  .frontCard {
-    transform: rotate(9deg) translate(35px, 12px);
-  }
-  .topLabel,
-  .bottomLabel {
-    font-size: 8px;
-    letter-spacing: 1.8px;
-  }
-  .steps {
-    grid-template-columns: 1fr 1fr;
-  }
-  .steps > p br {
-    display: inline;
-  }
-}
-@media (min-width: 801px) {
-  .home {
-    padding: 0 var(--page-gutter-fluid);
-  }
-  .hero {
-    grid-template-columns: 1fr 1fr;
-    min-height: 650px;
-    padding: 55px 0;
-  }
-  .intro h1 {
-    font-size: clamp(52px, 5.8vw, 83px);
-  }
-  .note {
-    margin-top: 42px;
-  }
-  .collection {
-    min-height: 490px;
-    max-width: none;
-    width: auto;
-    margin: 0;
-  }
-  .steps {
-    grid-template-columns: 1.1fr 1fr 1fr 1fr;
-    gap: 25px;
-  }
+.about {
+  composes: action;
+  position: absolute;
+  top: 21px;
+  right: 16px;
 }

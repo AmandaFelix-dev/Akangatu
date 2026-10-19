@@ -26,3 +26,10 @@ export const SETUP_BUTTONS = {
 } as const
 
 export const FIRST_MATCH_MESSAGE = 'Primeira partida concluída.'
+
+export const HOME_LABELS = {
+  logo: 'Akangatu',
+  start: 'Começar a jogar',
+  performance: 'Desempenho',
+  about: 'Manual / Sobre',
+} as const
