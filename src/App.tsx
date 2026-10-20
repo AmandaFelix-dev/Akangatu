@@ -40,7 +40,7 @@ export default function App() {
   }, [route, config, started]);
 
   useEffect(() => {
-    document.querySelector<HTMLElement>("main h1")?.focus();
+    document.querySelector<HTMLElement>("main h1, main[tabindex='-1']")?.focus();
     window.scrollTo?.({ top: 0 });
   }, [route]);
 

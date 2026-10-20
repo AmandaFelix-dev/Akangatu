@@ -13,6 +13,7 @@
   --font-main: "Poppins", sans-serif;
   --font-display: var(--font-main);
   --font-serif: Georgia, serif;
+  --font-theme-title: "Baloo 2", sans-serif;
   --color-cream: var(--paper);
   --color-text: var(--ink);
   --radius: 16px;
@@ -54,6 +55,8 @@
   --color-wood-hover: #654027;
   --color-wood-active: #55351f;
   --color-wood-border: #51331f;
+  --color-theme-card: #f5eede;
+  --color-theme-title: #28523b;
   --color-wood-text: #fff8e9;
   --wood-grain:
     repeating-radial-gradient(

@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { THEMES } from "../../data/themes";
+import { HOME_LABELS, THEMES_LABELS } from "../../data/texts";
 import type { Theme } from "../../types/theme";
 import type { GameConfig } from "../../types/game";
 import { DifficultySelection } from "./DifficultySelection";
-import { Button } from "../../components/Button/Button";
+import { MainBackground } from "../../components/MainBackground/MainBackground";
+import logo from "../../assets/logo.svg";
+import collectionTitle from "../../assets/layout/collection-title.svg";
+import backButton from "../../assets/layout/btn/back-to.svg";
 import styles from "./ThemeSelection.module.css";
 export function ThemeSelection({
   onStart,
@@ -14,48 +18,40 @@ export function ThemeSelection({
 }) {
   const [selected, setSelected] = useState<Theme | null>(null);
   return (
-    <main className={styles.page}>
-      <Button variant="text" className={styles.back} onClick={onBack}>
-        ← Voltar ao início
-      </Button>
-      <p className={styles.eyebrow}>01 / ESCOLHA A COLEÇÃO</p>
-      <h1 tabIndex={-1}>
-        Por onde vamos <em>explorar?</em>
-      </h1>
-      <p className={styles.lead}>
-        Cada universo guarda algo para descobrir.
-      </p>
-      <div className={styles.grid}>
+    <main
+      className={styles.page}
+      tabIndex={-1}
+      aria-label={THEMES_LABELS.title}
+    >
+      <MainBackground />
+      <button
+        className={styles.back}
+        aria-label={THEMES_LABELS.back}
+        onClick={onBack}
+      >
+        <img src={backButton} alt="" />
+      </button>
+      <img className={styles.logo} src={logo} alt={HOME_LABELS.logo} />
+      <img
+        className={styles.title}
+        src={collectionTitle}
+        alt={THEMES_LABELS.title}
+      />
+      <ul className={styles.list}>
         {THEMES.map((theme, index) => (
-          <button
-            key={theme.id}
-            className={styles.card + " " + (!theme.isUnlocked ? styles.locked : "")}
-            disabled={!theme.isUnlocked}
-            onClick={() => setSelected(theme)}
-          >
-            <div className={styles.image}>
-              <img
-                src={theme.coverImage}
-                alt={"Ilustração da coleção " + theme.name}
-              />
-              <span className={styles.badge}>
-                {theme.isUnlocked ? "DISPONÍVEL" : "BLOQUEADO"}
-              </span>
-            </div>
-            <div className={styles.caption}>
-              <span>0{index + 1} / COLEÇÃO</span>
-              <h2>
-                {theme.name} <span>{theme.isUnlocked ? "↗" : "◇"}</span>
-              </h2>
-              <p>
-                {theme.isUnlocked
-                  ? "Encontros com a beleza da vida selvagem."
-                  : theme.unlockDescription}
-              </p>
-            </div>
-          </button>
+          <li key={theme.id}>
+            <button
+              className={
+                styles.card + (index % 2 === 1 ? " " + styles.reversed : "")
+              }
+              onClick={() => setSelected(theme)}
+            >
+              <img src={theme.coverImage} alt="" className={styles.image} />
+              <span className={styles.name}>{theme.name}</span>
+            </button>
+          </li>
         ))}
-      </div>
+      </ul>
       {selected && (
         <DifficultySelection
           theme={selected}

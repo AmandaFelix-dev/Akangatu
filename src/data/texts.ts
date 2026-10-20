@@ -33,3 +33,8 @@ export const HOME_LABELS = {
   performance: 'Desempenho',
   about: 'Manual / Sobre',
 } as const
+
+export const THEMES_LABELS = {
+  title: 'Coleções',
+  back: 'Voltar',
+} as const
