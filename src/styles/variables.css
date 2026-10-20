@@ -57,6 +57,9 @@
   --color-wood-border: #51331f;
   --color-theme-card: #f5eede;
   --color-theme-title: #28523b;
+  --color-locked-veil: rgb(102 102 102 / 80%);
+  --color-progress-track: #d9d9d9;
+  --color-progress-fill: #e5672a;
   --color-wood-text: #fff8e9;
   --wood-grain:
     repeating-radial-gradient(

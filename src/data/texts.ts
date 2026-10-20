@@ -37,4 +37,6 @@ export const HOME_LABELS = {
 export const THEMES_LABELS = {
   title: 'Coleções',
   back: 'Voltar',
+  locked: 'bloqueado',
+  progress: 'Progresso para desbloquear',
 } as const

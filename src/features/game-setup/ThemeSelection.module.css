@@ -43,10 +43,20 @@
   justify-content: center;
   width: 100%;
 }
-.card {
-  display: flex;
+.item {
+  position: relative;
   width: min(295px, 100%);
   height: 153px;
+  container-type: inline-size;
+}
+.locked {
+  z-index: var(--z-raised);
+  margin-bottom: 35px;
+}
+.card {
+  display: flex;
+  width: 100%;
+  height: 100%;
   padding: 0;
   border: 3px solid var(--color-wood-border);
   border-radius: 23px;
@@ -77,6 +87,63 @@
   font-size: 29px;
   line-height: 1;
   color: var(--color-theme-title);
+}
+.veil {
+  position: absolute;
+  inset: 0;
+  border-radius: 23px;
+  background: var(--color-locked-veil);
+  pointer-events: none;
+}
+.blocked {
+  position: absolute;
+  top: -4.4cqw;
+  left: -5.1cqw;
+  width: 25.1cqw;
+  height: auto;
+  pointer-events: none;
+}
+.plaque {
+  position: absolute;
+  top: 35.5cqw;
+  left: -4cqw;
+  width: 108cqw;
+  height: 28.5cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2cqw;
+  z-index: var(--z-raised);
+  pointer-events: none;
+}
+.bar {
+  width: 57%;
+}
+.plaqueImage {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: -1;
+  /* o SVG (427 × 146) é achatado para a proporção 301 × 75 da placa */
+  transform: translateY(-50%) scaleY(0.729);
+}
+.condition {
+  max-width: 78%;
+  margin: 0;
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--color-on-ink);
+}
+@container (max-width: 294px) {
+  .name {
+    font-size: 8.5cqw;
+  }
 }
 @media (min-width: 768px) {
   .list {
