@@ -1,41 +1,38 @@
-/* Compõe a moldura, não `page`: a ordem entre módulos não garante que este max-width vença. */
+/* Medidas do esboço a 390 × 844; --u as escala em telas mais estreitas. */
 .page {
-  composes: pageFrame from "../../styles/layout.module.css";
+  --u: min(1px, calc(100vw / 390));
+  --top: calc(43 * var(--u));
+  --bottom: calc(100 * var(--u));
+  --board-gap: 8px;
+  position: relative;
+  box-sizing: border-box;
+  min-height: 100dvh;
   max-width: var(--width-game);
-}
-.eyebrow {
-  composes: eyebrow from "../../styles/typography.module.css";
-}
-.heading {
+  margin: 0 auto;
+  padding: var(--top) 20px var(--bottom);
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 20px;
+  align-items: center;
 }
-.heading h1 {
-  font-size: 36px;
+.page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--theme-background);
 }
-.badge {
-  white-space: nowrap;
-  font-size: 12px;
-  padding: 10px 14px;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-pill);
-}
-.hint {
-  text-align: center;
-  font-size: 12px;
-  margin: 24px 0;
+.page:focus {
+  outline: none;
 }
 @media (min-width: 701px) {
-  .heading {
-    align-items: center;
-    flex-direction: row;
-    margin-bottom: 0;
+  .page {
+    --board-gap: 14px;
   }
-  .heading h1 {
-    font-size: 44px;
+}
+@media (min-width: 701px) and (orientation: landscape) {
+  .page {
+    --bottom: 24px;
+    /* topo + status (~80px) + margem do tabuleiro (48px) + base */
+    --chrome: calc(var(--top) + 80px + 48px + var(--bottom));
   }
 }

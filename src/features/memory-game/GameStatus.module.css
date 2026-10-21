@@ -1,44 +1,37 @@
+/* --u (definida na página) escala as medidas de 390 px para telas mais estreitas. */
 .status {
   display: flex;
   align-items: center;
-  gap: 18px;
-  border-top: 1px solid var(--color-line-status);
-  border-bottom: 1px solid var(--color-line-status);
-  padding: 16px 0;
-  margin: 8px 0 25px;
-  background: var(--paper);
-  position: sticky;
-  top: 0;
-  z-index: var(--z-sticky);
+  justify-content: center;
+  gap: calc(54 * var(--u));
 }
-.status div {
+.stats {
+  display: flex;
+  gap: calc(44 * var(--u));
+}
+.stats div {
   display: grid;
-  gap: 7px;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-modal-title);
 }
-.status div span {
-  font-size: 9px;
-  letter-spacing: 1.5px;
+.stats span {
+  font-size: calc(20 * var(--u));
 }
-.status strong {
-  font-size: 20px;
-  font-weight: 500;
+.stats strong {
+  font-size: calc(32 * var(--u));
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
-/* Seletor com elemento para vencer o padding e o gap do Button. */
-.status button {
-  margin-left: auto;
-  padding: 12px;
-  gap: 5px;
+.pause {
+  border: 0;
+  background: none;
+  padding: 0;
+  line-height: 0;
+  flex: none;
 }
-@media (min-width: 701px) {
-  .status {
-    gap: 35px;
-  }
-  .status strong {
-    font-size: 24px;
-  }
-  .status button {
-    padding: 12px 18px;
-    gap: 35px;
-  }
+.pause img {
+  width: calc(64 * var(--u));
+  height: auto;
 }

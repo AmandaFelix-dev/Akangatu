@@ -43,6 +43,12 @@ export const HOME_LABELS = {
   about: 'Manual / Sobre',
 } as const
 
+export const GAME_LABELS = {
+  time: 'Tempo',
+  attempts: 'Tentativas',
+  pause: 'Pausar',
+} as const
+
 export const THEMES_LABELS = {
   title: 'Coleções',
   back: 'Voltar',

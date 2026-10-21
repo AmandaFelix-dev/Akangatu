@@ -1,12 +1,17 @@
+/* --board-gap e --u vêm da GamePage. */
 .board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: var(--board-gap);
+  width: 100%;
   max-width: var(--width-board);
-  margin: auto;
+  margin: calc(48 * var(--u)) auto 0;
 }
-@media (min-width: 701px) {
+/* Tela larga e baixa: duas linhas, com a largura limitada pela altura livre para não haver scroll. */
+@media (min-width: 701px) and (orientation: landscape) {
   .board {
-    gap: 14px;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    max-width: none;
+    width: min(100%, calc(var(--columns) * (100dvh - var(--chrome) - var(--board-gap)) / 3 + (var(--columns) - 1) * var(--board-gap)));
   }
 }
