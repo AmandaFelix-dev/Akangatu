@@ -47,6 +47,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
     const success = saveMatch({
       id: crypto.randomUUID(), date: new Date().toISOString(),
       difficulty: config.difficulty, themeId: config.themeId, mode: config.mode,
+      ...(config.mode === 'challenge' && { challengeType: config.challengeType }),
       ...match, result,
     })
     queueMicrotask(() => {

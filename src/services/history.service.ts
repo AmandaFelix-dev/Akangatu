@@ -8,6 +8,7 @@ function valid(value: unknown): value is MatchHistory {
   const item = value as MatchHistory
   return typeof item.id === 'string' && typeof item.themeId === 'string'
     && ['easy', 'medium', 'hard'].includes(item.difficulty) && ['traditional', 'challenge'].includes(item.mode)
+    && (item.challengeType === undefined || ['time', 'attempts'].includes(item.challengeType))
     && ['win', 'loss'].includes(item.result)
     && Number.isInteger(item.durationInSeconds) && item.durationInSeconds >= 0
     && Number.isInteger(item.attempts) && item.attempts >= 0

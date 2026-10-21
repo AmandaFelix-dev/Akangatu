@@ -25,6 +25,7 @@ export interface MatchHistory {
   difficulty: DifficultyId
   themeId: string
   mode: GameMode
+  challengeType?: ChallengeType
   durationInSeconds: number
   attempts: number
   result: GameResult
