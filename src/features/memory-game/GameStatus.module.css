@@ -55,7 +55,7 @@
   width: calc(214 * var(--u));
 }
 .attemptsHud {
-  width: calc(238 * var(--u));
+  width: calc(150 * var(--u));
 }
 .timerValue,
 .attemptsValue {
@@ -80,7 +80,7 @@
   position: absolute;
   top: 85%;
   transform: translateY(-50%);
-  font-size: calc(20 * var(--u));
+  font-size: calc(17 * var(--u));
 }
 .attemptsValue strong {
   position: absolute;
