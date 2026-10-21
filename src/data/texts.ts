@@ -6,6 +6,15 @@ export const MODE_LABELS: Record<GameMode, string> = {
   challenge: 'Desafio',
 }
 
+// Opções de modo da seleção; Limite de tempo e Quantidade de tentativas dependem da F01.
+export const SETUP_MODES = [
+  { id: 'traditional', label: 'Normal' },
+  { id: 'time', label: 'Limite de tempo' },
+  { id: 'attempts', label: 'Quantidade de tentativas' },
+] as const
+
+export const STORAGE_UNAVAILABLE_MESSAGE = 'O armazenamento não está disponível. Seu desempenho fica disponível nesta sessão.'
+
 export function difficultyLabel(id: DifficultyId) {
   return `${DIFFICULTIES[id].totalCards} cartas`
 }
@@ -19,8 +28,8 @@ export function difficultySummary(id: DifficultyId) {
 }
 
 export const SETUP_BUTTONS = {
-  continue: 'Continuar →',
-  changeTheme: '← Trocar tema',
+  continue: 'Continuar',
+  changeTheme: 'Trocar tema',
   start: 'Começar →',
   cancel: 'Cancelar',
 } as const

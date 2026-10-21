@@ -43,10 +43,9 @@ describe('Main journey', () => {
         expect(screen.getByRole('button', { name: 'Virar carta 1' })).toBeTruthy();
         await user.click(screen.getByRole('button', { name: /Pausar/ }));
         await user.click(screen.getByRole('button', { name: 'Reiniciar' }));
-        expect(screen.getByRole('heading', { name: 'Começar de novo?' })).toBeTruthy();
-        await user.click(screen.getByRole('button', { name: 'Cancelar' }));
+        await user.click(screen.getByRole('button', { name: /Pausar/ }));
         await user.click(screen.getByRole('button', { name: 'Sair' }));
-        expect(screen.getByRole('heading', { name: 'Sair da partida?' })).toBeTruthy();
+        expect(screen.getByRole('heading', { name: 'Certeza de que deseja sair da partida?' })).toBeTruthy();
         await user.click(screen.getByRole('button', { name: 'Cancelar' }));
         await user.click(screen.getByRole('button', { name: /Continuar/ }));
         const groups = new Map<string, HTMLButtonElement[]>();
@@ -56,7 +55,7 @@ describe('Main journey', () => {
             await user.click(buttons[1]);
             await waitFor(() => expect(buttons.every(button => button.classList.contains('matched'))).toBe(true), { timeout: 2000 });
         }
-        expect(await screen.findByRole('heading', { name: 'Coleção encontrada!' })).toBeTruthy();
+        expect(await screen.findByRole('heading', { name: 'Partida concluída!' })).toBeTruthy();
         expect(loadHistory()).toHaveLength(1);
         expect(loadHistory()[0].attempts).toBe(4);
         await user.click(screen.getByRole('button', { name: /Ver desempenho/ }));

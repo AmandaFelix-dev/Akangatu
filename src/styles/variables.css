@@ -14,6 +14,7 @@
   --font-display: var(--font-main);
   --font-serif: Georgia, serif;
   --font-theme-title: "Baloo 2", sans-serif;
+  --font-modal-title: "Lilita One", sans-serif;
   --color-cream: var(--paper);
   --color-text: var(--ink);
   --radius: 16px;
@@ -51,6 +52,8 @@
   --color-card-frame: #b4ad7c;
   --color-matched: #698050;
 
+  --color-modal: #f5eede;
+  --color-modal-title: #1C3428;
   --color-wood: #785033;
   --color-wood-hover: #654027;
   --color-wood-active: #55351f;

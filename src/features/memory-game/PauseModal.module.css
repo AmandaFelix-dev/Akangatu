@@ -1,0 +1,61 @@
+.home {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  width: calc(63 * var(--u));
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+.actions {
+  display: grid;
+  justify-items: center;
+  gap: calc(8 * var(--u));
+  padding: calc(18 * var(--u)) 0 calc(31 * var(--u));
+}
+.action {
+  width: calc(71 * var(--u));
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+.exitButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: calc(58 * var(--u));
+  padding: calc(33 * var(--u)) 0 calc(28 * var(--u));
+}
+.cancel,
+.confirm {
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+.cancel {
+  width: calc(86 * var(--u));
+}
+.confirm {
+  width: calc(81 * var(--u));
+}
+.home img,
+.action img,
+.cancel img,
+.confirm img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Uma quebra de linha em telas pequenas; some quando a tela cresce. */
+.titleBreak {
+  display: block;
+}
+@media (min-width: 768px) {
+  .titleBreak {
+    display: inline;
+  }
+}

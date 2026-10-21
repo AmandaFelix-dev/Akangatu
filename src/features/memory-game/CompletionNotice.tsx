@@ -1,16 +1,14 @@
 import { Modal } from '../../components/Modal/Modal'
-import { Button } from '../../components/Button/Button'
 import { formatTime } from '../../utils/formatTime'
 import { FIRST_MATCH_MESSAGE } from '../../data/texts'
 import type { RecordComparison } from '../../utils/calculateRecords'
+import concluded from '../../assets/layout/endgame/concluded.png'
 import styles from './CompletionNotice.module.css'
 interface CompletionNoticeProps {
   elapsed: number
   attempts: number
   comparison: RecordComparison | null
-  persistent: boolean
   onRestart: () => void
-  onExit: () => void
   onHome: () => void
   onPerformance: () => void
 }
@@ -25,23 +23,24 @@ function recordMessages(comparison: RecordComparison | null) {
 }
 
 // Theme unlock progress awaits the unlock rules.
-export function CompletionNotice({ elapsed, attempts, comparison, persistent, onRestart, onExit, onHome, onPerformance }: CompletionNoticeProps) {
+export function CompletionNotice({ elapsed, attempts, comparison, onRestart, onHome, onPerformance }: CompletionNoticeProps) {
   const messages = recordMessages(comparison)
   return (
-    <Modal title="Coleção encontrada!">
-      <p>Você encontrou todos os pares em {formatTime(elapsed)}, com {attempts} tentativas.</p>
-      {messages.length > 0 && (
-        <div className={styles.records} role="status">
-          {messages.map(message => <p key={message}>{message}</p>)}
-        </div>
-      )}
-      <p>{persistent
-        ? 'Seu desempenho foi salvo neste dispositivo.'
-        : 'O armazenamento não está disponível. Seu desempenho fica disponível nesta sessão.'}</p>
-      <Button fullWidth onClick={onRestart}>Jogar novamente</Button>
-      <Button variant="secondary" fullWidth onClick={onExit}>Novo jogo</Button>
-      <Button variant="secondary" fullWidth onClick={onHome}>Voltar ao início</Button>
-      <Button variant="text" fullWidth onClick={onPerformance}>Ver desempenho →</Button>
+    <Modal title="Partida concluída!" flush above={<img className={styles.image} src={concluded} alt="" />}>
+      <div className={styles.content}>
+        <dl className={styles.values}>
+          <div><dt>TEMPO TOTAL</dt><dd>{formatTime(elapsed)}</dd></div>
+          <div><dt>Nº DE TENTATIVAS</dt><dd>{String(attempts).padStart(2, '0')}</dd></div>
+        </dl>
+        {messages.length > 0 && (
+          <div className={styles.records} role="status">
+            {messages.map(message => <p key={message}>{message}</p>)}
+          </div>
+        )}
+        <button className={styles.wood} onClick={onRestart}>Jogar novamente</button>
+        <button className={styles.wood} onClick={onHome}>Voltar ao início</button>
+        <button className={styles.link} onClick={onPerformance}>Ver desempenho</button>
+      </div>
     </Modal>
   )
 }

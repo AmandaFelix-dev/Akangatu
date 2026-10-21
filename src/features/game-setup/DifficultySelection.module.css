@@ -1,42 +1,83 @@
-.eyebrow {
-  composes: eyebrow from "../../styles/typography.module.css";
+.content {
+  --u: clamp(0.5px, 0.1185dvh, 1px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: calc(14 * var(--u));
+  font-family: var(--font-main);
 }
-.srOnly {
-  composes: srOnly from "../../styles/layout.module.css";
-}
-.options {
+.close {
+  position: absolute;
+  top: -22px;
+  left: max(-24px, calc(4px - (100vw - 100%) / 2));
+  width: calc(68 * var(--u));
   border: 0;
-  display: grid;
-  gap: 10px;
   padding: 0;
-  margin: 24px 0;
-}
-.option {
-  display: grid;
-  grid-template-columns: 22px 1fr;
-  gap: 5px 10px;
-  border: 1px solid var(--color-line);
-  padding: 15px;
-  border-radius: var(--radius-sm);
+  background: none;
   cursor: pointer;
 }
-.option.selected {
-  border-color: var(--ink);
-  background: var(--color-surface-selected);
+.close img,
+.continue img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
-.option input {
-  grid-row: span 2;
-  align-self: center;
-  accent-color: var(--ink);
+.plaques {
+  display: flex;
+  gap: 9px;
+  margin-top: calc(14 * var(--u));
 }
-.option span {
-  font-size: 12px;
-  color: var(--color-text-muted-difficulty);
+.plaque {
+  width: 63px;
+  height: 57px;
+  border: 0;
+  padding: 0;
+  background: url("../../assets/layout/square-base.svg") center / 100% 100% no-repeat;
+  color: #fff;
+  font: 800 18px var(--font-main);
+  cursor: pointer;
 }
-.option.single input {
-  grid-row: auto;
+/* Destaque provisório: texto verde. */
+.plaque.selected {
+  color: #8ee06a;
 }
-.option.disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
+.modeTitle {
+  margin: calc(12 * var(--u)) 0 0;
+  font: 800 28px var(--font-main);
+  color: var(--color-modal-title);
+}
+.modes {
+  max-width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+  display: grid;
+  justify-items: start;
+  gap: calc(6 * var(--u));
+  margin-top: calc(14 * var(--u));
+}
+.mode {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: #000;
+  font: 500 18px var(--font-main);
+  text-align: left;
+  cursor: pointer;
+}
+.mode img {
+  flex: none;
+  width: calc(40 * var(--u));
+  height: auto;
+}
+.continue {
+  width: calc(84 * var(--u));
+  margin-top: calc(15 * var(--u));
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
 }

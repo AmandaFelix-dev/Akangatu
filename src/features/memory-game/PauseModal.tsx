@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Modal } from "../../components/Modal/Modal";
-import { Button } from "../../components/Button/Button";
+import homeButton from "../../assets/layout/btn/home.svg";
+import playButton from "../../assets/layout/btn/play.svg";
+import replayButton from "../../assets/layout/btn/replay.svg";
+import closeButton from "../../assets/layout/btn/close.svg";
+import confirmButton from "../../assets/layout/btn/confirm.svg";
+import styles from "./PauseModal.module.css";
 export function PauseModal({
   onContinue,
   onRestart,
@@ -12,58 +17,44 @@ export function PauseModal({
   onExit: () => void;
   canRestart: boolean;
 }) {
-  const [confirm, setConfirm] = useState<"restart" | "exit" | null>(null);
+  const [confirmingExit, setConfirmingExit] = useState(false);
+  if (confirmingExit) {
+    return (
+      <Modal
+        title={<>Certeza de que deseja <span className={styles.titleBreak}>sair da partida?</span></>}
+        onClose={() => setConfirmingExit(false)}
+        ownClose
+        flush
+        titleTop="calc(25 * var(--u))"
+        titleSize="clamp(20px, 6.6vw, 24px)"
+        titlePad="30px"
+      >
+        <div className={styles.exitButtons}>
+          <button aria-label="Cancelar" className={styles.cancel} onClick={() => setConfirmingExit(false)}>
+            <img src={closeButton} alt="" />
+          </button>
+          <button aria-label="Sim, sair" className={styles.confirm} onClick={onExit}>
+            <img src={confirmButton} alt="" />
+          </button>
+        </div>
+      </Modal>
+    );
+  }
   return (
-    <Modal
-      title={
-        confirm
-          ? confirm === "restart"
-            ? "Começar de novo?"
-            : "Sair da partida?"
-          : "Um respiro."
-      }
-      onClose={confirm ? () => setConfirm(null) : onContinue}
-    >
-      {confirm ? (
-        <>
-          <p>
-            Seu progresso nesta partida será descartado. Partidas anteriores
-            continuam salvas.
-          </p>
-          <Button
-            fullWidth
-            onClick={confirm === "restart" ? onRestart : onExit}
-          >
-            {confirm === "restart" ? "Sim, reiniciar" : "Sim, sair"}
-          </Button>
-          <Button variant="text" fullWidth onClick={() => setConfirm(null)}>
-            Cancelar
-          </Button>
-        </>
-      ) : (
-        <>
-          <p>As cartas esperam. O cronômetro está pausado.</p>
-          <Button fullWidth onClick={onContinue}>
-            Continuar →
-          </Button>
-          {canRestart && (
-            <Button
-              variant="secondary"
-              fullWidth
-              onClick={() => setConfirm("restart")}
-            >
-              Reiniciar
-            </Button>
-          )}
-          <Button
-            variant="text"
-            fullWidth
-            onClick={() => setConfirm("exit")}
-          >
-            Sair
-          </Button>
-        </>
-      )}
+    <Modal title="Deseja continuar?" onClose={onContinue} ownClose flush titleTop="calc(95 * var(--u))">
+      <button aria-label="Sair" className={styles.home} onClick={() => setConfirmingExit(true)}>
+        <img src={homeButton} alt="" />
+      </button>
+      <div className={styles.actions}>
+        <button aria-label="Continuar" className={styles.action} onClick={onContinue}>
+          <img src={playButton} alt="" />
+        </button>
+        {canRestart && (
+          <button aria-label="Reiniciar" className={styles.action} onClick={onRestart}>
+            <img src={replayButton} alt="" />
+          </button>
+        )}
+      </div>
     </Modal>
   );
 }

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { GameConfig } from '../../types/game'
 import { DIFFICULTIES } from '../../data/difficulties'
 import { THEMES } from '../../data/themes'
-import { difficultySummary } from '../../data/texts'
+import { STORAGE_UNAVAILABLE_MESSAGE, difficultySummary } from '../../data/texts'
 import { loadHistory, saveMatch } from '../../services/history.service'
 import { calculateRecords, compareWithRecords } from '../../utils/calculateRecords'
 import type { RecordComparison } from '../../utils/calculateRecords'
@@ -28,7 +28,6 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
   const game = useGame(config, suspended || !started)
   const { setPaused } = game
   const saved = useRef(false)
-  const [persistent, setPersistent] = useState(true)
   const [comparison, setComparison] = useState<RecordComparison | null>(null)
   const found = game.state.cards.filter(card => card.isMatched).length / 2
   const difficulty = DIFFICULTIES[config.difficulty]
@@ -44,7 +43,10 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
       difficulty: config.difficulty, themeId: config.themeId, mode: config.mode,
       ...match, result: 'win',
     })
-    queueMicrotask(() => { setPersistent(success); setComparison(result) })
+    queueMicrotask(() => {
+      if (!success) window.alert(STORAGE_UNAVAILABLE_MESSAGE)
+      setComparison(result)
+    })
   }, [game.complete, game.state.elapsed, game.state.attempts, config])
 
   useEffect(() => {
@@ -89,8 +91,8 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
       )}
       {game.complete && (
         <CompletionNotice elapsed={game.state.elapsed} attempts={game.state.attempts}
-          comparison={comparison} persistent={persistent}
-          onRestart={restart} onExit={onExit} onHome={onHome} onPerformance={onPerformance} />
+          comparison={comparison}
+          onRestart={restart} onHome={onHome} onPerformance={onPerformance} />
       )}
     </main>
   )

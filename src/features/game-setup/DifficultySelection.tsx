@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Modal } from '../../components/Modal/Modal';
-import { Button } from '../../components/Button/Button';
 import { DIFFICULTIES } from '../../data/difficulties';
-import { MODE_LABELS, SETUP_BUTTONS, difficultyDetail, difficultyLabel } from '../../data/texts';
+import { SETUP_BUTTONS, SETUP_MODES, difficultyLabel } from '../../data/texts';
 import type { Theme } from '../../types/theme';
 import type { DifficultyId, GameConfig } from '../../types/game';
+import closeButton from '../../assets/layout/btn/close.svg';
+import continueButton from '../../assets/layout/btn/continue.svg';
+import checkboxEmpty from '../../assets/layout/btn/checkbox-empty.svg';
+import checkboxMarked from '../../assets/layout/btn/checkbox-marked.svg';
 import styles from './DifficultySelection.module.css';
 export function DifficultySelection({ theme, onClose, onStart }: {
     theme: Theme;
@@ -12,30 +15,31 @@ export function DifficultySelection({ theme, onClose, onStart }: {
     onStart: (config: GameConfig) => void;
 }) {
     const [difficulty, setDifficulty] = useState<DifficultyId>('easy');
-    return <Modal title="No seu ritmo." onClose={onClose}>
-        <p className={styles.eyebrow}>02 / DIFICULDADE · {theme.name}</p>
-        <p>Escolha o tamanho da sua descoberta.</p>
-        <fieldset className={styles.options}>
-            <legend className={styles.srOnly}>Dificuldade</legend>
-            {Object.values(DIFFICULTIES).map(item => <label key={item.id} className={styles.option + (difficulty === item.id ? ' ' + styles.selected : '')}>
-                <input type="radio" name="difficulty" value={item.id} checked={difficulty === item.id} onChange={() => setDifficulty(item.id)}/>
-                <strong>{difficultyLabel(item.id)}</strong>
-                <span>{difficultyDetail(item.id)}</span>
-            </label>)}
-        </fieldset>
-        {/* Challenge stays disabled until its mode is implemented. */}
-        <fieldset className={styles.options}>
-            <legend className={styles.srOnly}>Modo</legend>
-            <label className={styles.option + ' ' + styles.single + ' ' + styles.selected}>
-                <input type="radio" name="mode" value="traditional" defaultChecked/>
-                <strong>{MODE_LABELS.traditional}</strong>
-            </label>
-            <label className={styles.option + ' ' + styles.single + ' ' + styles.disabled}>
-                <input type="radio" name="mode" value="challenge" disabled/>
-                <strong>{MODE_LABELS.challenge}</strong>
-            </label>
-        </fieldset>
-        <Button fullWidth onClick={() => onStart({ themeId: theme.id, difficulty, mode: 'traditional' })}>{SETUP_BUTTONS.continue}</Button>
-        <Button variant="text" fullWidth onClick={onClose}>{SETUP_BUTTONS.changeTheme}</Button>
+    // Só visual até a F01: a partida segue no modo Normal.
+    const [mode, setMode] = useState<string>(SETUP_MODES[0].id);
+    return <Modal title="Dificuldade" onClose={onClose} ownClose flush sansTitle titleTop="calc(38 * var(--u))">
+        <div className={styles.content}>
+            <button className={styles.close} aria-label={SETUP_BUTTONS.changeTheme} onClick={onClose}>
+                <img src={closeButton} alt=""/>
+            </button>
+            <div className={styles.plaques} role="radiogroup" aria-label="Dificuldade">
+                {Object.values(DIFFICULTIES).map(item => <button key={item.id} type="button" role="radio"
+                    aria-checked={difficulty === item.id} aria-label={difficultyLabel(item.id)}
+                    className={styles.plaque + (difficulty === item.id ? ' ' + styles.selected : '')}
+                    onClick={() => setDifficulty(item.id)}>{item.totalCards}</button>)}
+            </div>
+            <h2 className={styles.modeTitle}>Modo</h2>
+            <div className={styles.modes} role="radiogroup" aria-label="Modo">
+                {SETUP_MODES.map(item => <button key={item.id} type="button" role="radio"
+                    aria-checked={mode === item.id} className={styles.mode} onClick={() => setMode(item.id)}>
+                    <img src={mode === item.id ? checkboxMarked : checkboxEmpty} alt=""/>
+                    <span>{item.label}</span>
+                </button>)}
+            </div>
+            <button className={styles.continue} aria-label={SETUP_BUTTONS.continue}
+                onClick={() => onStart({ themeId: theme.id, difficulty, mode: 'traditional' })}>
+                <img src={continueButton} alt=""/>
+            </button>
+        </div>
     </Modal>;
 }
