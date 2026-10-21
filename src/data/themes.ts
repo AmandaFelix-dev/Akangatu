@@ -15,7 +15,7 @@ export const THEMES: Theme[] = [
     { id: 'fauna', name: 'Fauna', coverImage: fauna, isUnlocked: true, cards: Object.values(animals) },
     { id: 'flora', name: 'Flora', coverImage: flora, isUnlocked: true, cards: Object.values(flowers) },
     { id: 'artifacts', name: 'Artefatos', coverImage: artifacts, isUnlocked: true, cards: Object.values(draws) },
-    { id: 'biological-reserves', name: 'Reservas', coverImage: reserves, isUnlocked: false, unlockDescription: 'Conclua 3 partidas consecutivas com 8 cartas em até 30 s', cards: Object.values(reserveCards) },
-    { id: 'xilogravura', name: 'Xilogravura', coverImage: woodcut, isUnlocked: false, unlockDescription: 'Conclua 1 partida com 16 cartas em até 50 s', cards: Object.values(woodcutCards) },
-    { id: 'around-the-world', name: 'Mundial', coverImage: world, isUnlocked: false, unlockDescription: 'Conclua 2 partidas consecutivas com 12 cartas em até 40 s', cards: Object.values(worldCards) }    
+    { id: 'biological-reserves', name: 'Reservas', coverImage: reserves, isUnlocked: false, cards: Object.values(reserveCards) },
+    { id: 'xilogravura', name: 'Xilogravura', coverImage: woodcut, isUnlocked: false, cards: Object.values(woodcutCards) },
+    { id: 'around-the-world', name: 'Mundial', coverImage: world, isUnlocked: false, cards: Object.values(worldCards) }    
 ];

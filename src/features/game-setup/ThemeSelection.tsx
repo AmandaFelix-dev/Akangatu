@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { THEMES } from "../../data/themes";
-import { HOME_LABELS, THEMES_LABELS } from "../../data/texts";
+import { HOME_LABELS, THEMES_LABELS, unlockCondition, unlockProgressText } from "../../data/texts";
+import { UNLOCK_RULES } from "../../data/unlockRules";
+import { loadHistory } from "../../services/history.service";
+import { calculateUnlockProgress } from "../../utils/unlockProgress";
 import type { Theme } from "../../types/theme";
 import type { GameConfig } from "../../types/game";
 import { DifficultySelection } from "./DifficultySelection";
@@ -13,13 +16,6 @@ import blockedIcon from "../../assets/layout/btn/blocked.svg";
 import plaque from "../../assets/layout/retangle-base.svg";
 import styles from "./ThemeSelection.module.css";
 
-// TODO: progresso real depende da F11; por ora, exemplos fixos.
-const EXAMPLE_PROGRESS: Record<string, number> = {
-  "biological-reserves": 66,
-  "around-the-world": 50,
-  xilogravura: 10,
-};
-
 export function ThemeSelection({
   onStart,
   onBack,
@@ -28,6 +24,7 @@ export function ThemeSelection({
   onBack: () => void;
 }) {
   const [selected, setSelected] = useState<Theme | null>(null);
+  const [history] = useState(loadHistory);
   return (
     <main
       className={styles.page}
@@ -52,6 +49,8 @@ export function ThemeSelection({
         {THEMES.map((theme, index) => {
           const locked = !theme.isUnlocked;
           const conditionId = `condition-${theme.id}`;
+          const rule = UNLOCK_RULES[theme.id];
+          const progress = rule && calculateUnlockProgress(history, rule);
           return (
             <li key={theme.id}>
               <div
@@ -87,11 +86,12 @@ export function ThemeSelection({
                     <div className={styles.plaque}>
                       <img src={plaque} alt="" className={styles.plaqueImage} />
                       <p id={conditionId} className={styles.condition}>
-                        {theme.unlockDescription}
+                        {rule && unlockCondition(rule)}
                       </p>
                       <div className={styles.bar}>
                         <ProgressBar
-                          value={EXAMPLE_PROGRESS[theme.id] ?? 0}
+                          value={progress ? (progress.current / progress.target) * 100 : 0}
+                          valueText={progress && unlockProgressText(progress.current, progress.target)}
                           label={`${THEMES_LABELS.progress}: ${theme.name}`}
                         />
                       </div>
