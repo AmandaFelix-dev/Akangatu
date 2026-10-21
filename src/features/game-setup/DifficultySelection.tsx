@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Modal } from '../../components/Modal/Modal';
 import { DIFFICULTIES } from '../../data/difficulties';
 import { SETUP_BUTTONS, SETUP_MODES, difficultyLabel } from '../../data/texts';
+import type { SetupModeId } from '../../data/texts';
 import type { Theme } from '../../types/theme';
 import type { DifficultyId, GameConfig } from '../../types/game';
+import { buildGameConfig } from '../../utils/challenge';
 import closeButton from '../../assets/layout/btn/close.svg';
 import continueButton from '../../assets/layout/btn/continue.svg';
 import checkboxEmpty from '../../assets/layout/btn/checkbox-empty.svg';
@@ -15,8 +17,7 @@ export function DifficultySelection({ theme, onClose, onStart }: {
     onStart: (config: GameConfig) => void;
 }) {
     const [difficulty, setDifficulty] = useState<DifficultyId>('easy');
-    // Só visual até a F01: a partida segue no modo Normal.
-    const [mode, setMode] = useState<string>(SETUP_MODES[0].id);
+    const [mode, setMode] = useState<SetupModeId>(SETUP_MODES[0].id);
     return <Modal title="Dificuldade" onClose={onClose} ownClose flush sansTitle titleTop="calc(38 * var(--u))">
         <div className={styles.content}>
             <button className={styles.close} aria-label={SETUP_BUTTONS.changeTheme} onClick={onClose}>
@@ -37,7 +38,7 @@ export function DifficultySelection({ theme, onClose, onStart }: {
                 </button>)}
             </div>
             <button className={styles.continue} aria-label={SETUP_BUTTONS.continue}
-                onClick={() => onStart({ themeId: theme.id, difficulty, mode: 'traditional' })}>
+                onClick={() => onStart(buildGameConfig(theme.id, difficulty, mode))}>
                 <img src={continueButton} alt=""/>
             </button>
         </div>

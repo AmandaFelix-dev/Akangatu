@@ -7,9 +7,10 @@ function valid(value: unknown): value is MatchHistory {
   if (!value || typeof value !== 'object') return false
   const item = value as MatchHistory
   return typeof item.id === 'string' && typeof item.themeId === 'string'
-    && ['easy', 'medium', 'hard'].includes(item.difficulty) && item.result === 'win'
+    && ['easy', 'medium', 'hard'].includes(item.difficulty) && ['traditional', 'challenge'].includes(item.mode)
+    && ['win', 'loss'].includes(item.result)
     && Number.isInteger(item.durationInSeconds) && item.durationInSeconds >= 0
-    && Number.isInteger(item.attempts) && item.attempts > 0
+    && Number.isInteger(item.attempts) && item.attempts >= 0
 }
 
 export function loadHistory(): MatchHistory[] {

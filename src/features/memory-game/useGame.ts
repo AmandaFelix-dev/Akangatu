@@ -3,6 +3,7 @@ import { THEMES } from '../../data/themes'
 import { DIFFICULTIES } from '../../data/difficulties'
 import { MISMATCH_DELAY_MS } from '../../data/game'
 import { createDeck } from '../../utils/createDeck'
+import { getChallengeOutcome, getDisplayedSeconds, getSpentSeconds, isTimeUp } from '../../utils/challenge'
 import { gameReducer } from './gameReducer'
 import type { GameConfig } from '../../types/game'
 
@@ -17,9 +18,14 @@ export function useGame(config: GameConfig, suspended = false) {
   }))
   const [paused, setPaused] = useState(false)
   const complete = state.cards.every(card => card.isMatched)
+  const result = getChallengeOutcome(config, {
+    attempts: state.attempts, elapsed: state.elapsed, complete, comparing: state.selected.length === 2,
+  })
+  const finished = result !== null
+  const timeUp = isTimeUp(config, state.elapsed)
 
   useEffect(() => {
-    if (paused || suspended || complete) return
+    if (paused || suspended || finished || timeUp) return
     let last = Date.now()
     const interval = setInterval(() => {
       const now = Date.now()
@@ -30,7 +36,7 @@ export function useGame(config: GameConfig, suspended = false) {
       }
     }, 200)
     return () => clearInterval(interval)
-  }, [paused, suspended, complete])
+  }, [paused, suspended, finished, timeUp])
 
   useEffect(() => {
     if (paused || suspended || state.selected.length !== 2) return
@@ -39,11 +45,15 @@ export function useGame(config: GameConfig, suspended = false) {
   }, [paused, suspended, state.selected])
 
   const flip = (id: string) => {
-    if (!paused && !suspended && !complete) dispatch({ type: 'flip', id })
+    if (!paused && !suspended && !finished && !timeUp) dispatch({ type: 'flip', id })
   }
   const restart = () => {
     dispatch({ type: 'reset', cards: deckFor(config) })
     setPaused(false)
   }
-  return { state, paused, setPaused, complete, flip, restart }
+  return {
+    state, paused, setPaused, complete, result, finished, flip, restart,
+    displayedSeconds: getDisplayedSeconds(config, state.elapsed),
+    spentSeconds: getSpentSeconds(config, state.elapsed),
+  }
 }

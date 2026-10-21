@@ -88,3 +88,7 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.defeat {
+  color: var(--color-defeat);
+}
