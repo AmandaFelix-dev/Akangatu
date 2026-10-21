@@ -20,11 +20,11 @@ interface GamePageProps {
   suspended: boolean
   onExit: () => void
   onPerformance: () => void
-  onHome: () => void
+  onThemes: () => void
   onStarted: () => void
 }
 
-export function GamePage({ config, suspended, onExit, onPerformance, onHome, onStarted }: GamePageProps) {
+export function GamePage({ config, suspended, onExit, onPerformance, onThemes, onStarted }: GamePageProps) {
   const [started, setStarted] = useState(false)
   const game = useGame(config, suspended || !started)
   const { setPaused } = game
@@ -92,7 +92,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
         <CompletionNotice result={result} mode={config.mode} challengeType={config.challengeType}
           challengeLimit={config.challengeLimit} elapsed={spentSeconds} attempts={attempts}
           comparison={comparison}
-          onRestart={restart} onHome={onHome} onPerformance={onPerformance} />
+          onRestart={restart} onThemes={onThemes} onPerformance={onPerformance} />
       )}
     </main>
   )

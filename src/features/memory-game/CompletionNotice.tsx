@@ -16,7 +16,7 @@ interface CompletionNoticeProps {
   attempts: number
   comparison: RecordComparison | null
   onRestart: () => void
-  onHome: () => void
+  onThemes: () => void
   onPerformance: () => void
 }
 
@@ -30,7 +30,7 @@ function recordMessages(comparison: RecordComparison | null) {
 }
 
 // Theme unlock progress awaits the unlock rules.
-export function CompletionNotice({ result, mode, challengeType, challengeLimit, elapsed, attempts, comparison, onRestart, onHome, onPerformance }: CompletionNoticeProps) {
+export function CompletionNotice({ result, mode, challengeType, challengeLimit, elapsed, attempts, comparison, onRestart, onThemes, onPerformance }: CompletionNoticeProps) {
   const isChallenge = mode === 'challenge'
   const lost = result === 'loss'
   const messages = result === 'win' ? recordMessages(comparison) : []
@@ -60,7 +60,7 @@ export function CompletionNotice({ result, mode, challengeType, challengeLimit, 
           </div>
         )}
         <button className={styles.wood} onClick={onRestart}>Jogar novamente</button>
-        <button className={styles.wood} onClick={onHome}>Voltar ao início</button>
+        <button className={styles.wood} onClick={onThemes}>Voltar ao início</button>
         <button className={styles.link} onClick={onPerformance}>Ver desempenho</button>
       </div>
     </Modal>
