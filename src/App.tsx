@@ -76,7 +76,7 @@ export default function App() {
           suspended={pendingRoute !== null}
           onExit={() => exitTo(ROUTES.themes)}
           onPerformance={() => exitTo(ROUTES.player)}
-          onHome={() => exitTo(ROUTES.home)}
+          onHome={() => exitTo(ROUTES.themes)}
           onStarted={() => setStarted(true)}
         />
       )}
