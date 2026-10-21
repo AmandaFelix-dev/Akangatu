@@ -24,6 +24,19 @@
 .page:focus {
   outline: none;
 }
+/* Desafio: o asset do topo fica a 18 px das cartas e a linha de baixo a 30 px do fim da tela. */
+.challengeTime,
+.challengeAttempts {
+  --bottom: calc(30 * var(--u));
+  --board-top: calc(18 * var(--u));
+  --board-bottom: calc(18 * var(--u));
+}
+.challengeTime {
+  --hud-height: calc(110 * var(--u));
+}
+.challengeAttempts {
+  --hud-height: calc(206 * var(--u));
+}
 @media (min-width: 701px) {
   .page {
     --board-gap: 14px;
@@ -34,5 +47,11 @@
     --bottom: 24px;
     /* topo + status (~80px) + margem do tabuleiro (48px) + base */
     --chrome: calc(var(--top) + 80px + 48px + var(--bottom));
+  }
+  .challengeTime,
+  .challengeAttempts {
+    --bottom: 30px;
+    /* topo + asset + 18 + tabuleiro + 18 + linha de baixo (~78px) + base */
+    --chrome: calc(var(--top) + var(--hud-height) + 18px + 18px + 78px + var(--bottom));
   }
 }

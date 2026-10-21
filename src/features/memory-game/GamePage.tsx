@@ -30,6 +30,8 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
   const { setPaused } = game
   const saved = useRef(false)
   const [comparison, setComparison] = useState<RecordComparison | null>(null)
+  const pageClass = config.mode !== 'challenge' ? styles.page
+    : `${styles.page} ${config.challengeType === 'attempts' ? styles.challengeAttempts : styles.challengeTime}`
   const theme = THEMES.find(item => item.id === config.themeId)!
 
   const { result, spentSeconds } = game
@@ -71,10 +73,11 @@ export function GamePage({ config, suspended, onExit, onPerformance, onHome, onS
   const start = () => { setStarted(true); onStarted() }
 
   return (
-    <main className={styles.page} tabIndex={-1} aria-label={theme.name}
+    <main className={pageClass} tabIndex={-1} aria-label={theme.name}
       style={{ '--theme-background': THEME_BACKGROUNDS[theme.id] } as CSSProperties}>
       <GameStatus elapsed={game.displayedSeconds} attempts={game.state.attempts}
-        complete={game.finished} onPause={() => setPaused(true)} />
+        complete={game.finished} mode={config.mode} challengeType={config.challengeType}
+        challengeLimit={config.challengeLimit} onPause={() => setPaused(true)} />
       <Board cards={game.state.cards} onFlip={game.flip} concealed={game.paused && !game.finished}
         disabled={game.paused || suspended || !started || game.finished || game.state.selected.length === 2} />
       {!started && (

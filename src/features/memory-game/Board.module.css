@@ -5,7 +5,8 @@
   gap: var(--board-gap);
   width: 100%;
   max-width: var(--width-board);
-  margin: calc(48 * var(--u)) auto 0;
+  order: 2;
+  margin: var(--board-top, calc(48 * var(--u))) auto var(--board-bottom, 0px);
 }
 /* Tela larga e baixa: duas linhas, com a largura limitada pela altura livre para não haver scroll. */
 @media (min-width: 701px) and (orientation: landscape) {

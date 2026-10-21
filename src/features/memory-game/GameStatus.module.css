@@ -9,17 +9,20 @@
   display: flex;
   gap: calc(44 * var(--u));
 }
-.stats div {
+.stats div,
+.stat {
   display: grid;
   text-align: center;
   font-weight: 600;
   line-height: 1.5;
   color: var(--color-modal-title);
 }
-.stats span {
+.stats span,
+.stat span {
   font-size: calc(20 * var(--u));
 }
-.stats strong {
+.stats strong,
+.stat strong {
   font-size: calc(32 * var(--u));
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -34,4 +37,70 @@
 .pause img {
   width: calc(64 * var(--u));
   height: auto;
+}
+
+/* Desafio: cronômetro ou tentativas sobre o asset, no topo; a linha de baixo vem depois do tabuleiro (order). */
+.hud {
+  position: relative;
+  line-height: 0;
+  font-weight: 600;
+  color: #fff;
+}
+.hud img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.timerHud {
+  width: calc(214 * var(--u));
+}
+.attemptsHud {
+  width: calc(238 * var(--u));
+}
+.timerValue,
+.attemptsValue {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+}
+.timerValue {
+  top: 65%;
+  transform: translateY(-50%);
+  font-size: calc(32 * var(--u));
+  font-variant-numeric: tabular-nums;
+}
+.timerValue strong {
+  font-weight: 600;
+}
+.attemptsValue span {
+  position: absolute;
+  top: 85%;
+  transform: translateY(-50%);
+  font-size: calc(20 * var(--u));
+}
+.attemptsValue strong {
+  position: absolute;
+  top: 41%;
+  transform: translateY(-50%);
+  font-size: calc(32 * var(--u));
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.attemptsValue {
+  inset: 0;
+}
+.bottom {
+  order: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: center;
+  box-sizing: border-box;
+  /* margens de 19 px nas bordas da tela; no limite da largura do tabuleiro em telas largas */
+  width: min(calc(100% + 40px - 38 * var(--u)), var(--width-board));
+  margin-top: auto;
 }
