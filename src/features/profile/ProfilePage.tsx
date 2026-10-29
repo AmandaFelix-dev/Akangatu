@@ -59,6 +59,10 @@ export function ProfilePage({
         setDifficulty(item);
     };
 
+    const press = {
+        whileTap: reduceMotion ? undefined : { scale: 0.88 },
+        transition: { type: 'spring', stiffness: 500, damping: 25 },
+    } as const;
     return(
         <main
         className={styles.page}
@@ -66,13 +70,14 @@ export function ProfilePage({
         aria-label={PROFILE_LABELS.title}
         >
         <MainBackground />
-        <button
+        <motion.button
             className={styles.back}
             aria-label={PROFILE_LABELS.back}
             onClick={onBack}
+            {...press}
         >
             <img src={backButton} alt="" />
-        </button>
+        </motion.button>
         <img className={styles.logo} src={logo} alt={HOME_LABELS.logo} />
         <img
             className={styles.title}
@@ -145,13 +150,14 @@ export function ProfilePage({
             />
             </motion.div>
         </div>
-        <button
+        <motion.button
             className={styles.start}
             aria-label={HOME_LABELS.start}
             onClick={onPlay}
+            {...press}
         >
             <img src={startButton} alt="" />
-        </button>
+        </motion.button>
         </main>
     )
 }

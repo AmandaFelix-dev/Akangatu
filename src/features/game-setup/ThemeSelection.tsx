@@ -28,6 +28,10 @@ export function ThemeSelection({
   const [history] = useState(loadHistory);
   const [unlockedIds] = useState(loadUnlockedThemes);
   const reduceMotion = useReducedMotion();
+  const press = {
+        whileTap: reduceMotion ? undefined : { scale: 0.88 },
+        transition: { type: 'spring', stiffness: 500, damping: 25 },
+    } as const;
   return (
     <main
       className={styles.page}
@@ -35,13 +39,14 @@ export function ThemeSelection({
       aria-label={THEMES_LABELS.title}
     >
       <MainBackground />
-      <button
+      <motion.button
         className={styles.back}
         aria-label={THEMES_LABELS.back}
         onClick={onBack}
+        {...press}
       >
         <img src={backButton} alt="" />
-      </button>
+      </motion.button>
       <img className={styles.logo} src={logo} alt={HOME_LABELS.logo} />
       <img
         className={styles.title}
