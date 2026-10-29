@@ -12,7 +12,7 @@ import {
 import type { DifficultyId } from "../../types/game";
 import { MainBackground } from "../../components/MainBackground/MainBackground";
 import { PerformanceTable } from "./PerformanceTable";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.webp";
 import collectionTitle from "../../assets/layout/profile-title.svg";
 import backButton from "../../assets/layout/btn/back-to.svg";
 import startButton from "../../assets/layout/btn/start.svg";

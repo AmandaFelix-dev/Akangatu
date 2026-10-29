@@ -9,7 +9,7 @@ import type { GameConfig } from "../../types/game";
 import { DifficultySelection } from "./DifficultySelection";
 import { MainBackground } from "../../components/MainBackground/MainBackground";
 import { ProgressBar } from "../../components/ProgressBar/ProgressBar";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.webp";
 import collectionTitle from "../../assets/layout/collection-title.svg";
 import backButton from "../../assets/layout/btn/back-to.svg";
 import blockedIcon from "../../assets/layout/btn/blocked.svg";

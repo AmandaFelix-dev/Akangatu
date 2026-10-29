@@ -1,5 +1,5 @@
-import baseImage from '../../assets/layout/main-background.svg'
-import wideBaseImage from '../../assets/layout/main-background-wider.png'
+import baseImage from '../../assets/layout/main-background.webp'
+import wideBaseImage from '../../assets/layout/main-background-wider.webp'
 import styles from './MainBackground.module.css'
 
 export function MainBackground() {

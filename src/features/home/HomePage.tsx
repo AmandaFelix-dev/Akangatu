@@ -1,6 +1,6 @@
 import { MainBackground } from "../../components/MainBackground/MainBackground";
 import { HOME_LABELS } from "../../data/texts";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.webp";
 import startButton from "../../assets/layout/btn/start.svg";
 import performanceButton from "../../assets/layout/btn/perfomance.svg";
 import aboutButton from "../../assets/layout/btn/about.svg";
