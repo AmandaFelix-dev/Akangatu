@@ -36,6 +36,7 @@ export function DifficultySelection({ theme, onClose, onStart }: {
             <motion.button className={styles.close} aria-label={SETUP_BUTTONS.changeTheme} onClick={onClose} {...press}>
                 <img src={closeButton} alt=""/>
             </motion.button>
+            <p className={styles.subtitle}>(Número de cartas)</p>
             <div className={styles.plaques} role="radiogroup" aria-label="Dificuldade">
                 {Object.values(DIFFICULTIES).map(item => <button key={item.id} type="button" role="radio"
                     aria-checked={difficulty === item.id} aria-label={difficultyLabel(item.id)}

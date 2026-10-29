@@ -22,6 +22,11 @@
   width: 100%;
   height: auto;
 }
+.content .subtitle {
+  margin: 0;
+  font: 400 16px var(--font-main);
+  color: var(--color-modal-title);
+}
 .plaques {
   display: flex;
   gap: 9px;
