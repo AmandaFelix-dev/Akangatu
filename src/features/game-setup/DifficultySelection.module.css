@@ -42,9 +42,11 @@
   font: 800 18px var(--font-main);
   cursor: pointer;
 }
-/* Destaque provisório: texto verde. */
 .plaque.selected {
-  color: #8ee06a;
+  color: #41D163;
+  font: 800 26px var(--font-main);
+  width: 66px;
+  height: 60px;
 }
 .modeTitle {
   margin: calc(12 * var(--u)) 0 0;

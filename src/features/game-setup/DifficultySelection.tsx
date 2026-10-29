@@ -19,13 +19,19 @@ export function DifficultySelection({ theme, onClose, onStart }: {
 }) {
     const [difficulty, setDifficulty] = useState<DifficultyId>('easy');
     const [mode, setMode] = useState<SetupModeId>(SETUP_MODES[0].id);
-    // Só anima o radio depois de uma troca, não ao abrir o modal.
+    // Só anima placa e radio depois de uma troca, não ao abrir o modal.
+    const [difficultyPicked, setDifficultyPicked] = useState(false);
     const [modePicked, setModePicked] = useState(false);
     const reduceMotion = useReducedMotion();
     const press = {
         whileTap: reduceMotion ? undefined : { scale: 0.88 },
         transition: { type: 'spring', stiffness: 500, damping: 25 },
     } as const;
+    const pickDifficulty = (id: DifficultyId) => {
+        if (id === difficulty) return;
+        setDifficulty(id);
+        setDifficultyPicked(true);
+    };
     const pickMode = (id: SetupModeId) => {
         if (id === mode) return;
         setMode(id);
@@ -38,10 +44,15 @@ export function DifficultySelection({ theme, onClose, onStart }: {
             </motion.button>
             <p className={styles.subtitle}>(Número de cartas)</p>
             <div className={styles.plaques} role="radiogroup" aria-label="Dificuldade">
-                {Object.values(DIFFICULTIES).map(item => <button key={item.id} type="button" role="radio"
-                    aria-checked={difficulty === item.id} aria-label={difficultyLabel(item.id)}
-                    className={styles.plaque + (difficulty === item.id ? ' ' + styles.selected : '')}
-                    onClick={() => setDifficulty(item.id)}>{item.totalCards}</button>)}
+                {Object.values(DIFFICULTIES).map(item => {
+                    const selected = difficulty === item.id;
+                    return <motion.button key={item.id} type="button" role="radio"
+                        aria-checked={selected} aria-label={difficultyLabel(item.id)}
+                        className={styles.plaque + (selected ? ' ' + styles.selected : '')}
+                        animate={{ scale: selected && difficultyPicked && !reduceMotion ? [0.85, 1] : 1 }}
+                        transition={{ type: 'spring', stiffness: 500, damping: 14 }}
+                        onClick={() => pickDifficulty(item.id)}>{item.totalCards}</motion.button>;
+                })}
             </div>
             <h2 className={styles.modeTitle}>Modo</h2>
             <div className={styles.modes} role="radiogroup" aria-label="Modo">
