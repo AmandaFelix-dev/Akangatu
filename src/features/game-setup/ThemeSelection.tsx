@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { THEMES } from "../../data/themes";
 import { HOME_LABELS, THEMES_LABELS, unlockCondition, unlockProgressText } from "../../data/texts";
 import { UNLOCK_RULES } from "../../data/unlockRules";
@@ -26,6 +27,7 @@ export function ThemeSelection({
   const [selected, setSelected] = useState<Theme | null>(null);
   const [history] = useState(loadHistory);
   const [unlockedIds] = useState(loadUnlockedThemes);
+  const reduceMotion = useReducedMotion();
   return (
     <main
       className={styles.page}
@@ -57,7 +59,7 @@ export function ThemeSelection({
               <div
                 className={styles.item + (locked ? " " + styles.locked : "")}
               >
-                <button
+                <motion.button
                   className={
                     styles.card +
                     (index % 2 === 1 ? " " + styles.reversed : "")
@@ -72,10 +74,12 @@ export function ThemeSelection({
                   onClick={() => {
                     if (!locked) setSelected(theme);
                   }}
+                  whileTap={locked || reduceMotion ? undefined : { scale: 0.96 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 25 }}
                 >
                   <img src={theme.coverImage} alt="" className={styles.image} />
                   <span className={styles.name}>{theme.name}</span>
-                </button>
+                </motion.button>
                 {locked && (
                   <>
                     <div className={styles.veil} aria-hidden="true" />
