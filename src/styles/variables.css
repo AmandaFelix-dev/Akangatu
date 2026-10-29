@@ -65,6 +65,11 @@
   --color-progress-track: #d9d9d9;
   --color-progress-fill: #e5672a;
   --color-wood-text: #fff8e9;
+  --color-tab: #7a4a2e;
+  --color-tab-selected: #b86a3c;
+  --color-table-head: #5b3920;
+  --color-table-cell: #fdf6e8;
+  --color-scrollbar: rgb(81 51 31 / 45%);
   --wood-grain:
     repeating-radial-gradient(
       ellipse at 15% -40%,

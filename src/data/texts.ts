@@ -72,6 +72,29 @@ export const THEMES_LABELS = {
   progress: 'Progresso para desbloquear',
 } as const
 
+export const PROFILE_LABELS = {
+  title: 'Desempenho',
+  back: 'Voltar',
+  totalPlayed: 'Total de Partidas concluídas',
+  totalWins: 'Total de vitórias',
+  bestTime: 'Melhor tempo',
+  bestAttempts: 'Menor tentativas',
+  difficulties: 'Dificuldade',
+  table: 'Recordes por modo',
+  columns: {
+    mode: 'Modos',
+    played: 'Partidas',
+    bestTime: 'Melhor tempo',
+    bestAttempts: 'Melhor tentativas',
+  },
+  modes: {
+    traditional: 'Normal',
+    time: 'Limite de tempo',
+    attempts: 'Limite de tentativas',
+  },
+  empty: 'Seu primeiro encontro está por vir.',
+} as const
+
 export function unlockCondition(rule: UnlockRule) {
   const { consecutiveWins, difficulty, challengeType } = rule
   const limits = DIFFICULTY_LIMITS[difficulty]

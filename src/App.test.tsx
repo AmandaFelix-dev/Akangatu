@@ -59,7 +59,7 @@ describe('Main journey', () => {
         expect(loadHistory()).toHaveLength(1);
         expect(loadHistory()[0].attempts).toBe(4);
         await user.click(screen.getByRole('button', { name: /Ver desempenho/ }));
-        expect(await screen.findByRole('heading', { name: 'Memórias que ficam.' })).toBeTruthy();
+        expect(await screen.findByRole('main', { name: 'Desempenho' })).toBeTruthy();
         expect(screen.queryByText('Seu primeiro encontro está por vir.')).toBeNull();
     });
     it('shows an honest empty state and locked collections', async () => {

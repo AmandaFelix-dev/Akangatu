@@ -1,0 +1,100 @@
+.wrap {
+  align-self: stretch;
+  margin-left: calc((100% - var(--column)) / 2);
+  overflow-x: auto;
+}
+.emptyWrap {
+  width: var(--column);
+  overflow-x: auto;
+}
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  color: var(--color-modal-title);
+  font-variant-numeric: tabular-nums;
+}
+.wrap .table {
+  width: max-content;
+}
+.emptyWrap .table {
+  width: 100%;
+  font-size: min(14px, 3.6vw);
+}
+.table th,
+.table td {
+  height: 40px;
+  padding: 0 12px;
+  border-right: 1.5px solid var(--color-wood-border);
+  border-bottom: 1.5px solid var(--color-wood-border);
+  background: var(--color-table-cell);
+  font-weight: 400;
+  text-align: center;
+}
+.wrap th,
+.wrap td {
+  white-space: nowrap;
+}
+.emptyWrap th,
+.emptyWrap td {
+  padding: 0 min(12px, 2vw);
+}
+.wrap tr > :first-child {
+  width: 190px;
+}
+.wrap tr > :not(:first-child) {
+  width: 117px;
+}
+.table thead th {
+  background: var(--color-table-head);
+  color: var(--color-on-ink);
+  font-weight: 600;
+  border-top: 2px solid var(--color-wood-border);
+}
+.table tr > :first-child {
+  border-left: 2px solid var(--color-wood-border);
+  text-align: left;
+}
+.table tr > :last-child {
+  border-right-width: 2px;
+}
+.table tbody tr:last-child > * {
+  border-bottom-width: 2px;
+}
+.table thead th:first-child {
+  border-top-left-radius: 14px;
+}
+.table tbody tr:last-child > :first-child {
+  border-bottom-left-radius: 14px;
+}
+.emptyWrap thead th:last-child {
+  border-top-right-radius: 14px;
+}
+.table td.empty {
+  height: 120px;
+  padding: 0 16px;
+  border-bottom-right-radius: 14px;
+  text-align: center;
+}
+.wrap,
+.emptyWrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar) transparent;
+}
+/* A partir de 640 px a tabela (~583 px) cabe na coluna: sem rolagem, cantos arredondados dos dois lados. */
+@media (min-width: 640px) {
+  .wrap {
+    align-self: center;
+    width: var(--column);
+    margin-left: 0;
+  }
+  .wrap .table {
+    min-width: 100%;
+  }
+  .wrap thead th:last-child {
+    border-top-right-radius: 14px;
+  }
+  .wrap tbody tr:last-child > :last-child {
+    border-bottom-right-radius: 14px;
+  }
+}

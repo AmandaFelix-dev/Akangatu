@@ -1,14 +1,157 @@
-import { loadHistory } from '../../services/history.service';
-import { DIFFICULTIES } from '../../data/difficulties';
-import { difficultyDetail, difficultyLabel } from '../../data/texts';
-import { formatTime } from '../../utils/formatTime';
-import { Button } from '../../components/Button/Button';
-import styles from './ProfilePage.module.css';
-export function ProfilePage({ onPlay }: {
-    onPlay: () => void;
+import { useId, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { HOME_LABELS, PROFILE_LABELS, difficultyLabel } from "../../data/texts";
+import { DIFFICULTIES } from "../../data/difficulties";
+import { loadHistory } from "../../services/history.service";
+import {
+  formatBestAttempts,
+  formatBestTime,
+  summarizeDifficulty,
+  summarizeTotals,
+} from "../../utils/performanceSummary";
+import type { DifficultyId } from "../../types/game";
+import { MainBackground } from "../../components/MainBackground/MainBackground";
+import { PerformanceTable } from "./PerformanceTable";
+import logo from "../../assets/logo.svg";
+import collectionTitle from "../../assets/layout/profile-title.svg";
+import backButton from "../../assets/layout/btn/back-to.svg";
+import startButton from "../../assets/layout/btn/start.svg";
+import styles from "./ProfilePage.module.css";
+
+const DIFFICULTY_IDS = Object.keys(DIFFICULTIES) as DifficultyId[];
+
+function Stat({
+  className,
+  label,
+  value
+}: {
+  className: string;
+  label: string;
+  value: string | number;
 }) {
-    const history = loadHistory();
-    const bestTime = history.length ? formatTime(Math.min(...history.map(item => item.durationInSeconds))) : '—';
-    const bestAttempts = history.length ? Math.min(...history.map(item => item.attempts)) : '—';
-    return <main className={styles.page}><p className={styles.eyebrow}>SEU CADERNO DE DESCOBERTAS</p><h1 tabIndex={-1}>Memórias que <em>ficam.</em></h1><p className={styles.lead}>Cada encontro faz parte da sua evolução.</p><div className={styles.stats}><article><span>PARTIDAS CONCLUÍDAS</span><strong>{history.length.toString().padStart(2, '0')}</strong></article><article><span>MELHOR TEMPO</span><strong>{bestTime}</strong></article><article><span>MENOS TENTATIVAS</span><strong>{bestAttempts}</strong></article></div>{!history.length && <section className={styles.empty}><span aria-hidden="true">✳</span><h2>Seu primeiro encontro está por vir.</h2><p>Conclua uma partida para começar seu caderno de descobertas.<br />Seus recordes serão guardados neste dispositivo.</p><Button onClick={onPlay}>Começar a jogar ↗</Button></section>}<section className={styles.summary}><h2>Um ritmo, uma história.</h2><p>Seus melhores registros por dificuldade.</p><div className={styles.tableWrap}><table className={styles.table}><thead><tr><th>Dificuldade</th><th>Partidas</th><th>Melhor tempo</th><th>Menos tentativas</th></tr></thead><tbody>{Object.values(DIFFICULTIES).map(difficulty => { const items = history.filter(item => item.difficulty === difficulty.id); return <tr key={difficulty.id}><th scope="row">{difficultyLabel(difficulty.id)} <small>· {difficultyDetail(difficulty.id)}</small></th><td>{items.length}</td><td>{items.length ? formatTime(Math.min(...items.map(item => item.durationInSeconds))) : '—'}</td><td>{items.length ? Math.min(...items.map(item => item.attempts)) : '—'}</td></tr>; })}</tbody></table></div></section>{!!history.length && <Button onClick={onPlay}>Uma nova descoberta ↗</Button>}</main>;
+    return (
+        <div className={className}>
+        <dt>{label}</dt>
+        <dd>{value}</dd>
+        </div>
+    )
+}
+
+export function ProfilePage({
+  onBack,
+  onPlay
+}: {
+  onBack: () => void;
+  onPlay: () => void;
+}) {
+    const [history] = useState(loadHistory);
+    const [difficulty, setDifficulty] = useState(DIFFICULTY_IDS[0]);
+    const [switched, setSwitched] = useState(false);
+    const reduceMotion = useReducedMotion();
+    const id = useId();
+    const tabId = (item: DifficultyId) => `${id}-tab-${item}`;
+    const panelId = `${id}-panel`;
+    const totals = summarizeTotals(history);
+    const selected = summarizeDifficulty(history, difficulty);
+
+    const select = (item: DifficultyId) => {
+        setSwitched(true);
+        setDifficulty(item);
+    };
+
+    return(
+        <main
+        className={styles.page}
+        tabIndex={-1}
+        aria-label={PROFILE_LABELS.title}
+        >
+        <MainBackground />
+        <button
+            className={styles.back}
+            aria-label={PROFILE_LABELS.back}
+            onClick={onBack}
+        >
+            <img src={backButton} alt="" />
+        </button>
+        <img className={styles.logo} src={logo} alt={HOME_LABELS.logo} />
+        <img
+            className={styles.title}
+            src={collectionTitle}
+            alt={PROFILE_LABELS.title}
+        />
+        <div className={styles.summary}>
+            <dl className={styles.totals}>
+            <Stat
+                className={styles.total}
+                label={PROFILE_LABELS.totalPlayed}
+                value={totals.played}
+            />
+            <Stat
+                className={styles.total}
+                label={PROFILE_LABELS.totalWins}
+                value={totals.wins}
+            />
+            </dl>
+            <div
+            className={styles.tabs}
+            role="tablist"
+            aria-label={PROFILE_LABELS.difficulties}
+            >
+            {DIFFICULTY_IDS.map((item) => (
+                <motion.button
+                key={item}
+                id={tabId(item)}
+                className={styles.tab}
+                type="button"
+                role="tab"
+                aria-selected={item === difficulty}
+                aria-controls={panelId}
+                onClick={() => select(item)}
+                initial={false}
+                animate={
+                    reduceMotion ? undefined : { height: item === difficulty ? 44 : 38 }
+                }
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                >
+                {difficultyLabel(item)}
+                </motion.button>
+            ))}
+            </div>
+            <motion.div
+            key={difficulty}
+            id={panelId}
+            className={styles.panel}
+            role="tabpanel"
+            aria-labelledby={tabId(difficulty)}
+            initial={switched && !reduceMotion ? { opacity: 0 } : false}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            >
+            <dl className={styles.records}>
+                <Stat
+                className={styles.record}
+                label={PROFILE_LABELS.bestTime}
+                value={formatBestTime(selected.records.bestTime)}
+                />
+                <Stat
+                className={styles.record}
+                label={PROFILE_LABELS.bestAttempts}
+                value={formatBestAttempts(selected.records.bestAttempts)}
+                />
+            </dl>
+            <PerformanceTable
+                modes={selected.modes}
+                empty={selected.played === 0}
+            />
+            </motion.div>
+        </div>
+        <button
+            className={styles.start}
+            aria-label={HOME_LABELS.start}
+            onClick={onPlay}
+        >
+            <img src={startButton} alt="" />
+        </button>
+        </main>
+    )
 }

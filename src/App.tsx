@@ -81,7 +81,10 @@ export default function App() {
         />
       )}
       {route === ROUTES.player && (
-        <ProfilePage onPlay={() => navigate(ROUTES.themes)} />
+        <ProfilePage
+          onBack={() => navigate(ROUTES.home)}
+          onPlay={() => navigate(ROUTES.themes)}
+        />
       )}
       {route === ROUTES.manual && (
         <AboutPage onBack={() => navigate(ROUTES.home)} />
