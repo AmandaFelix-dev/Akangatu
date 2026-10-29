@@ -32,6 +32,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
   const { setPaused } = game
   const saved = useRef(false)
   const [comparison, setComparison] = useState<RecordComparison | null>(null)
+  const [firstMatch, setFirstMatch] = useState(false)
   const [unlockedThemes, setUnlockedThemes] = useState<string[]>([])
   const pageClass = config.mode !== 'challenge' ? styles.page
     : `${styles.page} ${config.challengeType === 'attempts' ? styles.challengeAttempts : styles.challengeTime}`
@@ -44,8 +45,9 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
     if (!result || saved.current) return
     saved.current = true
     const match = { durationInSeconds: spentSeconds, attempts }
+    const history = loadHistory()
     const comparison = result === 'win'
-      ? compareWithRecords(calculateRecords(loadHistory(), config.difficulty, config.mode), match)
+      ? compareWithRecords(calculateRecords(history, config.difficulty, config.mode), match)
       : null
     const success = saveMatch({
       id: crypto.randomUUID(), date: new Date().toISOString(),
@@ -60,6 +62,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
     queueMicrotask(() => {
       if (!success) window.alert(STORAGE_UNAVAILABLE_MESSAGE)
       setComparison(comparison)
+      setFirstMatch(history.length === 0)
       setUnlockedThemes(unlocked.map(item => item.name))
     })
   }, [result, spentSeconds, attempts, config])
@@ -78,7 +81,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
     return () => window.removeEventListener('beforeunload', guard)
   }, [started, game.finished])
 
-  const restart = () => { saved.current = false; setComparison(null); setUnlockedThemes([]); game.restart() }
+  const restart = () => { saved.current = false; setComparison(null); setFirstMatch(false); setUnlockedThemes([]); game.restart() }
   const start = () => { setStarted(true); onStarted() }
 
   return (
@@ -99,7 +102,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
       {result && (
         <CompletionNotice result={result} mode={config.mode} challengeType={config.challengeType}
           challengeLimit={config.challengeLimit} elapsed={spentSeconds} attempts={attempts}
-          comparison={comparison} unlockedThemes={unlockedThemes}
+          comparison={comparison} firstMatch={firstMatch} unlockedThemes={unlockedThemes}
           onRestart={restart} onThemes={onThemes} onPerformance={onPerformance} />
       )}
     </main>

@@ -15,6 +15,7 @@ interface CompletionNoticeProps {
   elapsed: number
   attempts: number
   comparison: RecordComparison | null
+  firstMatch: boolean
   // Names of the themes unlocked by this match.
   unlockedThemes: string[]
   onRestart: () => void
@@ -22,19 +23,19 @@ interface CompletionNoticeProps {
   onPerformance: () => void
 }
 
-function recordMessages(comparison: RecordComparison | null) {
+function recordMessages(comparison: RecordComparison | null, firstMatch: boolean) {
+  if (firstMatch) return [FIRST_MATCH_MESSAGE]
   if (!comparison) return []
-  if (comparison.first) return [FIRST_MATCH_MESSAGE]
   const messages: string[] = []
   if (comparison.previousTime !== null) messages.push(`Novo recorde de tempo! Antes: ${formatTime(comparison.previousTime)}`)
   if (comparison.previousAttempts !== null) messages.push(`Novo recorde de tentativas! Antes: ${comparison.previousAttempts}`)
   return messages
 }
 
-export function CompletionNotice({ result, mode, challengeType, challengeLimit, elapsed, attempts, comparison, unlockedThemes, onRestart, onThemes, onPerformance }: CompletionNoticeProps) {
+export function CompletionNotice({ result, mode, challengeType, challengeLimit, elapsed, attempts, comparison, firstMatch, unlockedThemes, onRestart, onThemes, onPerformance }: CompletionNoticeProps) {
   const isChallenge = mode === 'challenge'
   const lost = result === 'loss'
-  const messages = result === 'win' ? recordMessages(comparison) : []
+  const messages = result === 'win' ? recordMessages(comparison, firstMatch) : []
   const title = !isChallenge ? ENDGAME_TITLES.concluded : lost ? ENDGAME_TITLES.loss : ENDGAME_TITLES.win
   const image = !isChallenge ? concluded : lost ? defeat : win
   const showLimit = isChallenge && challengeType === 'attempts' && challengeLimit !== undefined
