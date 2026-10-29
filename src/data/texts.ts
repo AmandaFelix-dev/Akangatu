@@ -1,5 +1,4 @@
 import { DIFFICULTIES } from './difficulties'
-import { DIFFICULTY_LIMITS } from './difficultyLimits'
 import type { UnlockRule } from './unlockRules'
 import type { ChallengeType, DifficultyId, GameMode } from '../types/game'
 
@@ -97,14 +96,18 @@ export const PROFILE_LABELS = {
 
 export function unlockCondition(rule: UnlockRule) {
   const { consecutiveWins, difficulty, challengeType } = rule
-  const limits = DIFFICULTY_LIMITS[difficulty]
   const matches = consecutiveWins === 1 ? '1 partida' : `${consecutiveWins} partidas consecutivas`
   const challenge = challengeType === 'time'
-    ? `Desafio de tempo (até ${limits.timeLimitInSeconds} s)`
-    : `Desafio de tentativas (até ${limits.challengeAttemptsLimit})`
+    ? `Modo Limite de Tempo`
+    : `Modo Quantidade de Tentativas`
   return `Conclua ${matches} com ${difficultyLabel(difficulty)} no ${challenge}.`
 }
 
 export function unlockProgressText(current: number, target: number) {
   return `${current} de ${target}`
+}
+
+export function unlockedThemesMessage(names: string[]) {
+  if (names.length === 1) return `Novo tema desbloqueado: ${names[0]}!`
+  return `Novos temas desbloqueados: ${names.slice(0, -1).join(', ')} e ${names[names.length - 1]}!`
 }

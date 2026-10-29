@@ -3,10 +3,12 @@ import type { CSSProperties } from 'react'
 import type { GameConfig } from '../../types/game'
 import { THEMES } from '../../data/themes'
 import { THEME_BACKGROUNDS } from '../../data/themeBackgrounds'
+import { UNLOCK_RULES } from '../../data/unlockRules'
 import { STORAGE_UNAVAILABLE_MESSAGE } from '../../data/texts'
-import { loadHistory, saveMatch } from '../../services/history.service'
+import { loadHistory, loadUnlockedThemes, saveMatch, saveUnlockedThemes } from '../../services/history.service'
 import { calculateRecords, compareWithRecords } from '../../utils/calculateRecords'
 import type { RecordComparison } from '../../utils/calculateRecords'
+import { findNewUnlocks } from '../../utils/unlockProgress'
 import { useGame } from './useGame'
 import { Board } from './Board'
 import { GameStatus } from './GameStatus'
@@ -30,6 +32,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
   const { setPaused } = game
   const saved = useRef(false)
   const [comparison, setComparison] = useState<RecordComparison | null>(null)
+  const [unlockedThemes, setUnlockedThemes] = useState<string[]>([])
   const pageClass = config.mode !== 'challenge' ? styles.page
     : `${styles.page} ${config.challengeType === 'attempts' ? styles.challengeAttempts : styles.challengeTime}`
   const theme = THEMES.find(item => item.id === config.themeId)!
@@ -50,9 +53,14 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
       ...(config.mode === 'challenge' && { challengeType: config.challengeType }),
       ...match, result,
     })
+    const unlockedIds = loadUnlockedThemes()
+    const unlocked = findNewUnlocks(loadHistory(), unlockedIds, UNLOCK_RULES)
+      .flatMap(id => THEMES.filter(item => item.id === id && !item.isUnlocked))
+    if (unlocked.length > 0) saveUnlockedThemes([...unlockedIds, ...unlocked.map(item => item.id)])
     queueMicrotask(() => {
       if (!success) window.alert(STORAGE_UNAVAILABLE_MESSAGE)
       setComparison(comparison)
+      setUnlockedThemes(unlocked.map(item => item.name))
     })
   }, [result, spentSeconds, attempts, config])
 
@@ -70,7 +78,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
     return () => window.removeEventListener('beforeunload', guard)
   }, [started, game.finished])
 
-  const restart = () => { saved.current = false; setComparison(null); game.restart() }
+  const restart = () => { saved.current = false; setComparison(null); setUnlockedThemes([]); game.restart() }
   const start = () => { setStarted(true); onStarted() }
 
   return (
@@ -91,7 +99,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
       {result && (
         <CompletionNotice result={result} mode={config.mode} challengeType={config.challengeType}
           challengeLimit={config.challengeLimit} elapsed={spentSeconds} attempts={attempts}
-          comparison={comparison}
+          comparison={comparison} unlockedThemes={unlockedThemes}
           onRestart={restart} onThemes={onThemes} onPerformance={onPerformance} />
       )}
     </main>

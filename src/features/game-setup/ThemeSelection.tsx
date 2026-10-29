@@ -2,7 +2,7 @@ import { useState } from "react";
 import { THEMES } from "../../data/themes";
 import { HOME_LABELS, THEMES_LABELS, unlockCondition, unlockProgressText } from "../../data/texts";
 import { UNLOCK_RULES } from "../../data/unlockRules";
-import { loadHistory } from "../../services/history.service";
+import { loadHistory, loadUnlockedThemes } from "../../services/history.service";
 import { calculateUnlockProgress } from "../../utils/unlockProgress";
 import type { Theme } from "../../types/theme";
 import type { GameConfig } from "../../types/game";
@@ -25,6 +25,7 @@ export function ThemeSelection({
 }) {
   const [selected, setSelected] = useState<Theme | null>(null);
   const [history] = useState(loadHistory);
+  const [unlockedIds] = useState(loadUnlockedThemes);
   return (
     <main
       className={styles.page}
@@ -47,7 +48,7 @@ export function ThemeSelection({
       />
       <ul className={styles.list}>
         {THEMES.map((theme, index) => {
-          const locked = !theme.isUnlocked;
+          const locked = !theme.isUnlocked && !unlockedIds.includes(theme.id);
           const conditionId = `condition-${theme.id}`;
           const rule = UNLOCK_RULES[theme.id];
           const progress = rule && calculateUnlockProgress(history, rule);

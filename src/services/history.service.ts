@@ -36,3 +36,30 @@ export function saveMatch(match: MatchHistory): boolean {
     return false
   }
 }
+
+const UNLOCKS_KEY = '@akangatu:unlocks:v1'
+let unlockedMemory: string[] = []
+let unlocksSessionOnly = false
+
+export function loadUnlockedThemes(): string[] {
+  if (unlocksSessionOnly) return [...unlockedMemory]
+  let raw: string | null
+  try { raw = localStorage.getItem(UNLOCKS_KEY) } catch { return [...unlockedMemory] }
+  try {
+    const data: unknown = raw ? JSON.parse(raw) : []
+    unlockedMemory = Array.isArray(data) ? data.filter((id): id is string => typeof id === 'string') : []
+  } catch { unlockedMemory = [] }
+  return [...unlockedMemory]
+}
+
+export function saveUnlockedThemes(ids: string[]): boolean {
+  unlockedMemory = [...new Set(ids)]
+  try {
+    localStorage.setItem(UNLOCKS_KEY, JSON.stringify(unlockedMemory))
+    unlocksSessionOnly = false
+    return true
+  } catch {
+    unlocksSessionOnly = true
+    return false
+  }
+}

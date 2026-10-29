@@ -1,6 +1,6 @@
 import { Modal } from '../../components/Modal/Modal'
 import { formatTime } from '../../utils/formatTime'
-import { ENDGAME_TITLES, FIRST_MATCH_MESSAGE } from '../../data/texts'
+import { ENDGAME_TITLES, FIRST_MATCH_MESSAGE, unlockedThemesMessage } from '../../data/texts'
 import type { RecordComparison } from '../../utils/calculateRecords'
 import concluded from '../../assets/layout/endgame/concluded.png'
 import win from '../../assets/layout/endgame/win.png'
@@ -15,6 +15,8 @@ interface CompletionNoticeProps {
   elapsed: number
   attempts: number
   comparison: RecordComparison | null
+  // Names of the themes unlocked by this match.
+  unlockedThemes: string[]
   onRestart: () => void
   onThemes: () => void
   onPerformance: () => void
@@ -29,8 +31,7 @@ function recordMessages(comparison: RecordComparison | null) {
   return messages
 }
 
-// Theme unlock progress awaits the unlock rules.
-export function CompletionNotice({ result, mode, challengeType, challengeLimit, elapsed, attempts, comparison, onRestart, onThemes, onPerformance }: CompletionNoticeProps) {
+export function CompletionNotice({ result, mode, challengeType, challengeLimit, elapsed, attempts, comparison, unlockedThemes, onRestart, onThemes, onPerformance }: CompletionNoticeProps) {
   const isChallenge = mode === 'challenge'
   const lost = result === 'loss'
   const messages = result === 'win' ? recordMessages(comparison) : []
@@ -41,6 +42,7 @@ export function CompletionNotice({ result, mode, challengeType, challengeLimit, 
   return (
     <Modal title={title} flush above={<img className={styles.image} src={image} alt="" />}>
       <div className={styles.content}>
+        {unlockedThemes.length > 0 && <p className={styles.unlocked}>{unlockedThemesMessage(unlockedThemes)}</p>}
         <dl className={styles.values}>
           <div>
             <dt>TEMPO TOTAL</dt>

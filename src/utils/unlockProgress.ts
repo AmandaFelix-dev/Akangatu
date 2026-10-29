@@ -17,3 +17,14 @@ export function calculateUnlockProgress(history: MatchHistory[], rule: UnlockRul
   }
   return { current: best >= target ? target : Math.min(streak, target), target }
 }
+
+// Keeps the order of `rules`, which is the order of the unlock message.
+export function findNewUnlocks(history: MatchHistory[], unlockedIds: string[], rules: Record<string, UnlockRule>): string[] {
+  return Object.entries(rules)
+    .filter(([id, rule]) => {
+      if (unlockedIds.includes(id)) return false
+      const { current, target } = calculateUnlockProgress(history, rule)
+      return current >= target
+    })
+    .map(([id]) => id)
+}
