@@ -36,8 +36,36 @@
   font-size: 14px;
   color: var(--color-text-muted);
 }
+.steps ul,
+.steps ol {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin: 0 0 1em;
+  padding-left: 20px;
+}
+.steps li + li {
+  margin-top: 6px;
+}
+.steps ol li + li {
+  margin-top: 12px;
+}
+.steps strong {
+  color: var(--color-text);
+}
 @media (min-width: 701px) {
   .steps {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .walkthrough {
+    grid-column: 1 / -1;
+  }
+  .walkthrough ol {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px 32px;
+  }
+  .steps .walkthrough ol li {
+    margin-top: 0;
   }
 }
