@@ -45,6 +45,7 @@
   display: grid;
 }
 .totals {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 .stat {
@@ -66,11 +67,17 @@
   justify-content: space-between;
   gap: 12px;
   min-height: 96px;
+  padding: 8px 16px;
+}
+.played {
+  composes: total;
+  grid-column: 1 / -1;
   padding: 8px 26px;
 }
 .total dt {
-  font-size: calc(17 * var(--u));
+  font-size: calc(15 * var(--u));
   line-height: 1.5;
+  font-weight: 600;
 }
 .total dd {
   font-size: calc(52 * var(--u));
@@ -137,6 +144,10 @@
     --column: min(720px, 100% - 48px);
   }
   .totals {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .played {
+    grid-column: auto;
+    padding: 8px 16px;
   }
 }

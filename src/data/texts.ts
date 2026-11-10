@@ -96,6 +96,7 @@ export const PROFILE_LABELS = {
   back: 'Voltar',
   totalPlayed: 'Total de Partidas concluídas',
   totalWins: 'Total de vitórias',
+  totalLosses: 'Total de derrotas',
   bestTime: 'Melhor tempo',
   bestAttempts: 'Menor tentativas',
   difficulties: 'Dificuldade',

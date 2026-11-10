@@ -87,7 +87,7 @@ export function ProfilePage({
         <div className={styles.summary}>
             <dl className={styles.totals}>
             <Stat
-                className={styles.total}
+                className={styles.played}
                 label={PROFILE_LABELS.totalPlayed}
                 value={totals.played}
             />
@@ -95,6 +95,11 @@ export function ProfilePage({
                 className={styles.total}
                 label={PROFILE_LABELS.totalWins}
                 value={totals.wins}
+            />
+            <Stat
+                className={styles.total}
+                label={PROFILE_LABELS.totalLosses}
+                value={totals.losses}
             />
             </dl>
             <div

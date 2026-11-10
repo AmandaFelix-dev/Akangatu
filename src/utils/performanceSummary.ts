@@ -8,6 +8,7 @@ export type PerformanceModeId = 'traditional' | ChallengeType
 export interface PerformanceTotals {
   played: number
   wins: number
+  losses: number
 }
 
 export interface ModePerformance extends Records {
@@ -42,6 +43,7 @@ export function summarizeTotals(history: MatchHistory[]): PerformanceTotals {
     played: history.length,
     // No Normal a partida só é concluída; vitória é do Desafio.
     wins: history.filter(match => match.mode === 'challenge' && match.result === 'win').length,
+    losses: history.filter(match => match.mode === 'challenge' && match.result === 'loss').length,
   }
 }
 
