@@ -96,3 +96,16 @@
     letter-spacing: 2px;
   }
 }
+/* Celular deitado: verso do celular, porque as cartas ficam estreitas mesmo acima de 701 px. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .back {
+    border-width: 4px;
+  }
+  .back > span {
+    font-size: 32px;
+  }
+  .back small {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+}
