@@ -4,6 +4,7 @@
 
 html {
   min-height: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -20,4 +21,15 @@ select {
 
 button {
   cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Sem alvo de toque, a pressão longa não abre o menu de baixar/copiar imagem. */
+img {
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
