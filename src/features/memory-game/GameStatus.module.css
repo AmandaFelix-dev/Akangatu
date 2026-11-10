@@ -101,6 +101,6 @@
   align-self: center;
   box-sizing: border-box;
   /* margens de 19 px nas bordas da tela; no limite da largura do tabuleiro em telas largas */
-  width: min(calc(100% + 40px - 38 * var(--u)), var(--width-board));
+  width: min(calc(100% + 2 * var(--side) - 38 * var(--u)), var(--width-board));
   margin-top: auto;
 }

@@ -1,18 +1,21 @@
-/* --board-gap e --u vêm da GamePage. */
+/* --board-gap, --chrome, --side e --u vêm da GamePage. */
 .board {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(var(--columns), 1fr);
   gap: var(--board-gap);
-  width: 100%;
-  max-width: var(--width-board);
+  /* o maior tamanho que cabe na largura e na altura livres (--chrome), sem scroll; cartas 2:3 */
+  width: min(100%, calc(var(--columns) * (100dvh - var(--chrome) - (var(--rows) - 1) * var(--board-gap)) / var(--rows) * 2 / 3 + (var(--columns) - 1) * var(--board-gap)));
   order: 2;
   margin: var(--board-top, calc(48 * var(--u))) auto var(--board-bottom, 0px);
 }
-/* Tela larga e baixa: duas linhas, com a largura limitada pela altura livre para não haver scroll. */
-@media (min-width: 701px) and (orientation: landscape) {
-  .board {
-    grid-template-columns: repeat(var(--columns), 1fr);
-    max-width: none;
-    width: min(100%, calc(var(--columns) * (100dvh - var(--chrome) - var(--board-gap)) / 3 + (var(--columns) - 1) * var(--board-gap)));
-  }
+/* Área livre medida pelo useBoardColumns para escolher o número de colunas. */
+.area {
+  position: absolute;
+  top: 0;
+  left: var(--side);
+  right: var(--side);
+  height: calc(100dvh - var(--chrome));
+  column-gap: var(--board-gap);
+  visibility: hidden;
+  pointer-events: none;
 }
