@@ -47,7 +47,7 @@ export function difficultySummary(id: DifficultyId) {
 export const SETUP_BUTTONS = {
   continue: 'Continuar',
   changeTheme: 'Trocar tema',
-  start: 'Começar →',
+  start: 'Iniciar partida',
   cancel: 'Cancelar',
 } as const
 

@@ -74,7 +74,7 @@
   padding: 0;
   background: url("../../assets/layout/retangle-base.svg") center / 100% 100% no-repeat;
   color: #fff;
-  font: 600 20px var(--font-main);
+  font: 500 20px var(--font-main);
   cursor: pointer;
 }
 
