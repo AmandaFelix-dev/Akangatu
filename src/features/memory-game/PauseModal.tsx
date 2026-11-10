@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { Modal } from "../../components/Modal/Modal";
 import homeButton from "../../assets/layout/btn/home.svg";
 import playButton from "../../assets/layout/btn/play.svg";
@@ -18,6 +19,11 @@ export function PauseModal({
   canRestart: boolean;
 }) {
   const [confirmingExit, setConfirmingExit] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const press = {
+    whileTap: reduceMotion ? undefined : { scale: 0.88 },
+    transition: { type: "spring", stiffness: 500, damping: 25 },
+  } as const;
   if (confirmingExit) {
     return (
       <Modal
@@ -30,12 +36,12 @@ export function PauseModal({
         titlePad="30px"
       >
         <div className={styles.exitButtons}>
-          <button aria-label="Cancelar" className={styles.cancel} onClick={() => setConfirmingExit(false)}>
+          <motion.button aria-label="Cancelar" className={styles.cancel} onClick={() => setConfirmingExit(false)} {...press}>
             <img src={closeButton} alt="" />
-          </button>
-          <button aria-label="Sim, sair" className={styles.confirm} onClick={onExit}>
+          </motion.button>
+          <motion.button aria-label="Sim, sair" className={styles.confirm} onClick={onExit} {...press}>
             <img src={confirmButton} alt="" />
-          </button>
+          </motion.button>
         </div>
       </Modal>
     );
@@ -43,16 +49,16 @@ export function PauseModal({
   return (
     <Modal title="Deseja continuar?" onClose={onContinue} ownClose flush titleTop="calc(30 * var(--u))">
       <div className={styles.actions}>
-        <button aria-label="Sair" className={styles.action} onClick={() => setConfirmingExit(true)}>
+        <motion.button aria-label="Sair" className={styles.action} onClick={() => setConfirmingExit(true)} {...press}>
           <img src={homeButton} alt="" />
-        </button>
-        <button aria-label="Continuar" className={styles.action} onClick={onContinue}>
+        </motion.button>
+        <motion.button aria-label="Continuar" className={styles.action} onClick={onContinue} {...press}>
           <img src={playButton} alt="" />
-        </button>
+        </motion.button>
         {canRestart && (
-          <button aria-label="Reiniciar" className={styles.action} onClick={onRestart}>
+          <motion.button aria-label="Reiniciar" className={styles.action} onClick={onRestart} {...press}>
             <img src={replayButton} alt="" />
-          </button>
+          </motion.button>
         )}
       </div>
     </Modal>

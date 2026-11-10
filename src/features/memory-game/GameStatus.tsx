@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
 import type { ChallengeType, GameMode } from '../../types/game'
 import { formatTime } from '../../utils/formatTime'
 import { GAME_LABELS } from '../../data/texts'
@@ -21,10 +22,13 @@ interface GameStatusProps {
 export function GameStatus({ elapsed, attempts, complete, mode, challengeType, challengeLimit, onPause }: GameStatusProps) {
   const time = formatTime(elapsed)
   const paddedAttempts = attempts.toString().padStart(2, '0')
+  const reduceMotion = useReducedMotion()
   const pause = (
-    <button className={styles.pause} aria-label={GAME_LABELS.pause} onClick={onPause} disabled={complete}>
+    <motion.button className={styles.pause} aria-label={GAME_LABELS.pause} onClick={onPause} disabled={complete}
+      whileTap={complete || reduceMotion ? undefined : { scale: 0.88 }}
+      transition={{ type: 'spring', stiffness: 500, damping: 25 }}>
       <img src={pauseButton} alt="" />
-    </button>
+    </motion.button>
   )
 
   if (mode === 'challenge' && challengeType) {
