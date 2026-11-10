@@ -113,6 +113,7 @@
 
   --z-raised: 1;
   --z-sticky: 2;
+  --z-overlay: 3;
 
   --color-background-top: #ffffff;
   --color-background-bottom: #3887bc;

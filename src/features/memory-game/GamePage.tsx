@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import type { GameConfig } from '../../types/game'
 import { THEMES } from '../../data/themes'
@@ -6,7 +6,7 @@ import { THEME_BACKGROUNDS } from '../../data/themeBackgrounds'
 import { UNLOCK_RULES } from '../../data/unlockRules'
 import { STORAGE_UNAVAILABLE_MESSAGE } from '../../data/texts'
 import { loadHistory, loadUnlockedThemes, saveMatch, saveUnlockedThemes } from '../../services/history.service'
-import { calculateRecords, compareWithRecords } from '../../utils/calculateRecords'
+import { calculateRecords, compareWithRecords, recordKind } from '../../utils/calculateRecords'
 import type { RecordComparison } from '../../utils/calculateRecords'
 import { findNewUnlocks } from '../../utils/unlockProgress'
 import { useGame } from './useGame'
@@ -14,6 +14,7 @@ import { Board } from './Board'
 import { GameStatus } from './GameStatus'
 import { PauseModal } from './PauseModal'
 import { CompletionNotice } from './CompletionNotice'
+import { RecordAnnouncement } from './RecordAnnouncement'
 import { StartConfirmation } from './StartConfirmation'
 import styles from './GamePage.module.css'
 
@@ -32,6 +33,9 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
   const { setPaused } = game
   const saved = useRef(false)
   const [comparison, setComparison] = useState<RecordComparison | null>(null)
+  // Na vitória, o modal final só monta com a comparação pronta, para não aparecer antes do anúncio.
+  const [settled, setSettled] = useState(false)
+  const [announcing, setAnnouncing] = useState(false)
   const [firstMatch, setFirstMatch] = useState(false)
   const [unlockedThemes, setUnlockedThemes] = useState<string[]>([])
   const pageClass = config.mode !== 'challenge' ? `${styles.page} ${styles.normal}`
@@ -62,6 +66,8 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
     queueMicrotask(() => {
       if (!success) window.alert(STORAGE_UNAVAILABLE_MESSAGE)
       setComparison(comparison)
+      setSettled(true)
+      setAnnouncing(recordKind(comparison) !== null)
       setFirstMatch(history.length === 0)
       setUnlockedThemes(unlocked.map(item => item.name))
     })
@@ -81,7 +87,8 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
     return () => window.removeEventListener('beforeunload', guard)
   }, [started, game.finished])
 
-  const restart = () => { saved.current = false; setComparison(null); setFirstMatch(false); setUnlockedThemes([]); game.restart() }
+  const restart = () => { saved.current = false; setComparison(null); setSettled(false); setAnnouncing(false); setFirstMatch(false); setUnlockedThemes([]); game.restart() }
+  const endAnnouncement = useCallback(() => setAnnouncing(false), [])
   const start = () => { setStarted(true); onStarted() }
 
   return (
@@ -99,10 +106,13 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
       {game.paused && !game.finished && (
         <PauseModal canRestart={config.mode !== 'challenge'} onContinue={() => setPaused(false)} onRestart={restart} onExit={onExit} />
       )}
-      {result && (
+      {announcing && comparison && (
+        <RecordAnnouncement comparison={comparison} elapsed={spentSeconds} attempts={attempts} onDone={endAnnouncement} />
+      )}
+      {result && (result === 'loss' || settled) && !announcing && (
         <CompletionNotice result={result} mode={config.mode} challengeType={config.challengeType}
           challengeLimit={config.challengeLimit} elapsed={spentSeconds} attempts={attempts}
-          comparison={comparison} firstMatch={firstMatch} unlockedThemes={unlockedThemes}
+          firstMatch={firstMatch} unlockedThemes={unlockedThemes}
           onRestart={restart} onThemes={onThemes} onPerformance={onPerformance} />
       )}
     </main>

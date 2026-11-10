@@ -3,6 +3,7 @@ import { DIFFICULTY_LIMITS } from './difficultyLimits'
 import type { UnlockRule } from './unlockRules'
 import type { ChallengeType, DifficultyId, GameMode } from '../types/game'
 import type { Theme } from '../types/theme'
+import type { RecordKind } from '../utils/calculateRecords'
 
 export const MODE_LABELS: Record<GameMode, string> = {
   traditional: 'Normal',
@@ -28,6 +29,23 @@ export const ENDGAME_TITLES = {
   concluded: 'Partida concluída!',
   win: 'Você venceu o desafio!',
   loss: 'Você perdeu o desafio',
+} as const
+
+export const ENDGAME_LABELS = {
+  time: 'TEMPO TOTAL',
+  attempts: 'Nº DE TENTATIVAS',
+} as const
+
+export const RECORD_TITLES: Record<RecordKind, string> = {
+  time: 'Novo recorde de tempo!',
+  attempts: 'Novo recorde de tentativas!',
+  both: 'Novos recordes!',
+}
+
+export const RECORD_LABELS = {
+  previous: 'ANTERIOR',
+  current: 'ATUAL',
+  exit: 'Sair',
 } as const
 
 export const STORAGE_UNAVAILABLE_MESSAGE = 'O armazenamento não está disponível. Seu desempenho fica disponível nesta sessão.'

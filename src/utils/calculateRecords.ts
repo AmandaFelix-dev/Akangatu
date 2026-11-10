@@ -34,3 +34,14 @@ export function compareWithRecords(records: Records, match: MatchPerformance): R
     previousAttempts: bestAttempts !== null && match.attempts < bestAttempts ? bestAttempts : null,
   }
 }
+
+export type RecordKind = 'time' | 'attempts' | 'both'
+
+export function recordKind(comparison: RecordComparison | null): RecordKind | null {
+  if (!comparison) return null
+  const time = comparison.previousTime !== null
+  const attempts = comparison.previousAttempts !== null
+  if (time && attempts) return 'both'
+  if (time) return 'time'
+  return attempts ? 'attempts' : null
+}
