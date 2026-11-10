@@ -1,7 +1,6 @@
 import { Modal } from '../../components/Modal/Modal'
 import { formatTime } from '../../utils/formatTime'
-import { ENDGAME_TITLES, FIRST_MATCH_MESSAGE, unlockedThemesMessage } from '../../data/texts'
-import type { RecordComparison } from '../../utils/calculateRecords'
+import { ENDGAME_LABELS, ENDGAME_TITLES, FIRST_MATCH_MESSAGE, unlockedThemesMessage } from '../../data/texts'
 import concluded from '../../assets/layout/endgame/concluded.png'
 import win from '../../assets/layout/endgame/win.png'
 import defeat from '../../assets/layout/endgame/defeat.png'
@@ -14,7 +13,6 @@ interface CompletionNoticeProps {
   challengeLimit?: number
   elapsed: number
   attempts: number
-  comparison: RecordComparison | null
   firstMatch: boolean
   // Names of the themes unlocked by this match.
   unlockedThemes: string[]
@@ -23,19 +21,10 @@ interface CompletionNoticeProps {
   onPerformance: () => void
 }
 
-function recordMessages(comparison: RecordComparison | null, firstMatch: boolean) {
-  if (firstMatch) return [FIRST_MATCH_MESSAGE]
-  if (!comparison) return []
-  const messages: string[] = []
-  if (comparison.previousTime !== null) messages.push(`Novo recorde de tempo! Antes: ${formatTime(comparison.previousTime)}`)
-  if (comparison.previousAttempts !== null) messages.push(`Novo recorde de tentativas! Antes: ${comparison.previousAttempts}`)
-  return messages
-}
-
-export function CompletionNotice({ result, mode, challengeType, challengeLimit, elapsed, attempts, comparison, firstMatch, unlockedThemes, onRestart, onThemes, onPerformance }: CompletionNoticeProps) {
+export function CompletionNotice({ result, mode, challengeType, challengeLimit, elapsed, attempts, firstMatch, unlockedThemes, onRestart, onThemes, onPerformance }: CompletionNoticeProps) {
   const isChallenge = mode === 'challenge'
   const lost = result === 'loss'
-  const messages = result === 'win' ? recordMessages(comparison, firstMatch) : []
+  const showFirstMatch = !lost && firstMatch
   const title = !isChallenge ? ENDGAME_TITLES.concluded : lost ? ENDGAME_TITLES.loss : ENDGAME_TITLES.win
   const image = !isChallenge ? concluded : lost ? defeat : win
   const showLimit = isChallenge && challengeType === 'attempts' && challengeLimit !== undefined
@@ -46,20 +35,20 @@ export function CompletionNotice({ result, mode, challengeType, challengeLimit, 
         {unlockedThemes.length > 0 && <p className={styles.unlocked}>{unlockedThemesMessage(unlockedThemes)}</p>}
         <dl className={styles.values}>
           <div>
-            <dt>TEMPO TOTAL</dt>
+            <dt>{ENDGAME_LABELS.time}</dt>
             <dd className={lost && challengeType === 'time' ? styles.defeat : undefined}>{formatTime(elapsed)}</dd>
           </div>
           <div>
-            <dt>Nº DE TENTATIVAS</dt>
+            <dt>{ENDGAME_LABELS.attempts}</dt>
             <dd>
               {pad(attempts)}
               {showLimit && <span className={lost ? styles.defeat : undefined}>/{pad(challengeLimit)}</span>}
             </dd>
           </div>
         </dl>
-        {messages.length > 0 && (
+        {showFirstMatch && (
           <div className={styles.records} role="status">
-            {messages.map(message => <p key={message}>{message}</p>)}
+            <p>{FIRST_MATCH_MESSAGE}</p>
           </div>
         )}
         <button className={styles.wood} onClick={onRestart}>Jogar novamente</button>
