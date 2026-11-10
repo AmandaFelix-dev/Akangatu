@@ -1,0 +1,66 @@
+.screen {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  overflow: hidden;
+  background: var(--green);
+  font-family: var(--font-main);
+  text-align: center;
+}
+
+.image {
+  display: block;
+  width: calc(200 * var(--u));
+  height: auto;
+}
+
+.title {
+  margin: calc(16 * var(--u)) 0 calc(24 * var(--u));
+  font-family: var(--font-modal-title);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.values {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+}
+
+.values div {
+  display: grid;
+  gap: 0;
+}
+
+.values dt {
+  font-size: 14px;
+  color: #d9d9d9;
+}
+
+.values dd {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+/* Visual do "Ver desempenho"; o padding só aumenta a área de toque. */
+.exit {
+  margin-top: calc(16 * var(--u));
+  border: 0;
+  padding: 12px 24px;
+  background: none;
+  color: #d9d9d9;
+  font: 500 14px var(--font-main);
+  text-decoration: underline;
+  cursor: pointer;
+}
