@@ -1,12 +1,12 @@
 /* Medidas do esboço a 390 × 844; --u as escala em telas mais estreitas. */
+/* Topo, base e espaços entre as partes com 16 px no mínimo; a altura que sobrar centraliza o tabuleiro. */
 .page {
   --u: min(1px, calc(100vw / 390));
-  --top: calc(43 * var(--u));
-  --bottom: calc(100 * var(--u));
+  --top: calc(16 * var(--u));
+  --bottom: calc(16 * var(--u));
   --side: 10px;
   --board-gap: 8px;
-  /* topo + linha de tempo e tentativas + margem do tabuleiro + base */
-  --chrome: calc(var(--top) + 78 * var(--u) + 48 * var(--u) + var(--bottom));
+  --board-top: auto;
   position: relative;
   box-sizing: border-box;
   min-height: 100dvh;
@@ -15,6 +15,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  row-gap: calc(16 * var(--u));
 }
 .page::before {
   content: "";
@@ -26,36 +27,48 @@
 .page:focus {
   outline: none;
 }
-/* Desafio: o asset do topo fica a 18 px das cartas e a linha de baixo a 30 px do fim da tela. */
+.normal {
+  --board-bottom: auto;
+  /* topo + linha de tempo e tentativas + 16 + base */
+  --chrome: calc(var(--top) + 78 * var(--u) + 16 * var(--u) + var(--bottom));
+}
+/* Desafio: a linha de baixo vai para o fim da tela (margin-top: auto) e divide a sobra com o tabuleiro. */
 .challengeTime,
 .challengeAttempts {
-  --bottom: calc(30 * var(--u));
-  --board-top: calc(18 * var(--u));
-  --board-bottom: calc(18 * var(--u));
-  /* topo + asset + 18 + 18 + linha de baixo + base */
-  --chrome: calc(var(--top) + var(--hud-height) + 36 * var(--u) + 78 * var(--u) + var(--bottom));
+  --board-bottom: 0px;
+  /* topo + asset + 16 + 16 + linha de baixo + base */
+  --chrome: calc(var(--top) + var(--hud-height) + 32 * var(--u) + 78 * var(--u) + var(--bottom));
 }
 .challengeTime {
   --hud-height: calc(110 * var(--u));
 }
 .challengeAttempts {
-  --hud-height: calc(206 * var(--u));
+  --hud-scale: 1;
+  /* asset de 238 × 206 com 150 de largura */
+  --hud-height: calc(150 * 206 / 238 * var(--u) * var(--hud-scale));
 }
 @media (min-width: 701px) {
   .page {
     --board-gap: 14px;
   }
+  /* Normal a partir de 701 px: espaços do esboço (43/48/100) */
+  .normal {
+    --top: calc(43 * var(--u));
+    --bottom: calc(100 * var(--u));
+    --board-top: calc(48 * var(--u));
+    --board-bottom: 0px;
+    row-gap: 0;
+    --chrome: calc(var(--top) + 78 * var(--u) + 48 * var(--u) + var(--bottom));
+  }
 }
 @media (min-width: 701px) and (orientation: landscape) {
-  .page {
+  .normal {
     --bottom: 24px;
     /* topo + status (~80px) + margem do tabuleiro (48px) + base */
     --chrome: calc(var(--top) + 80px + 48px + var(--bottom));
   }
-  .challengeTime,
+  /* quadro de tentativas com 110 de altura, como o do cronômetro */
   .challengeAttempts {
-    --bottom: 30px;
-    /* topo + asset + 18 + tabuleiro + 18 + linha de baixo (~78px) + base */
-    --chrome: calc(var(--top) + var(--hud-height) + 18px + 18px + 78px + var(--bottom));
+    --hud-scale: calc(110 * 238 / (150 * 206));
   }
 }

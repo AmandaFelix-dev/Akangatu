@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { PREFERRED_BOARD_COLUMNS } from '../../data/game'
-import { chooseBoardColumns } from '../../utils/boardLayout'
+import { MOBILE_PORTRAIT_MEDIA, PREFERRED_BOARD_COLUMNS } from '../../data/game'
+import { boardColumnsFor } from '../../utils/boardLayout'
 
 // The probe element covers the free area left for the board (sized in CSS).
 export function useBoardColumns(cardCount: number) {
@@ -9,16 +9,21 @@ export function useBoardColumns(cardCount: number) {
 
   useEffect(() => {
     const probe = probeRef.current
-    if (!probe || typeof ResizeObserver === 'undefined') return
+    if (!probe) return
+    const media = typeof window.matchMedia === 'function' ? window.matchMedia(MOBILE_PORTRAIT_MEDIA) : null
     const update = () => {
       const { width, height } = probe.getBoundingClientRect()
       const gap = parseFloat(getComputedStyle(probe).columnGap) || 0
-      setColumns(chooseBoardColumns(cardCount, { width, height, gap }))
+      setColumns(boardColumnsFor(cardCount, { width, height, gap }, media?.matches ?? false))
     }
-    const observer = new ResizeObserver(update)
-    observer.observe(probe)
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(update)
+    observer?.observe(probe)
+    media?.addEventListener('change', update)
     update()
-    return () => observer.disconnect()
+    return () => {
+      observer?.disconnect()
+      media?.removeEventListener('change', update)
+    }
   }, [cardCount])
 
   return { probeRef, columns }

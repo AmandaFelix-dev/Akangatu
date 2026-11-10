@@ -55,7 +55,8 @@
   width: calc(214 * var(--u));
 }
 .attemptsHud {
-  width: calc(150 * var(--u));
+  /* --hud-scale (da página) encolhe o quadro e os textos juntos */
+  width: calc(150 * var(--u) * var(--hud-scale, 1));
 }
 .timerValue,
 .attemptsValue {
@@ -80,13 +81,13 @@
   position: absolute;
   top: 85%;
   transform: translateY(-50%);
-  font-size: calc(17 * var(--u));
+  font-size: calc(17 * var(--u) * var(--hud-scale, 1));
 }
 .attemptsValue strong {
   position: absolute;
   top: 41%;
   transform: translateY(-50%);
-  font-size: calc(32 * var(--u));
+  font-size: calc(32 * var(--u) * var(--hud-scale, 1));
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }

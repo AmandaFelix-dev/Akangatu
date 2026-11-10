@@ -34,7 +34,7 @@ export function GamePage({ config, suspended, onExit, onPerformance, onThemes, o
   const [comparison, setComparison] = useState<RecordComparison | null>(null)
   const [firstMatch, setFirstMatch] = useState(false)
   const [unlockedThemes, setUnlockedThemes] = useState<string[]>([])
-  const pageClass = config.mode !== 'challenge' ? styles.page
+  const pageClass = config.mode !== 'challenge' ? `${styles.page} ${styles.normal}`
     : `${styles.page} ${config.challengeType === 'attempts' ? styles.challengeAttempts : styles.challengeTime}`
   const theme = THEMES.find(item => item.id === config.themeId)!
 

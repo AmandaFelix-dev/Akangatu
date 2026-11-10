@@ -1,4 +1,4 @@
-import { CARD_ASPECT_RATIO, PREFERRED_BOARD_COLUMNS } from '../data/game'
+import { CARD_ASPECT_RATIO, MOBILE_BOARD_COLUMNS, PREFERRED_BOARD_COLUMNS } from '../data/game'
 
 export interface BoardArea {
   width: number
@@ -37,4 +37,9 @@ export function chooseBoardColumns(cardCount: number, area: BoardArea): number {
     }
   }
   return best
+}
+
+export function boardColumnsFor(cardCount: number, area: BoardArea, mobilePortrait: boolean): number {
+  const fixed = mobilePortrait ? MOBILE_BOARD_COLUMNS[cardCount] : undefined
+  return fixed ?? chooseBoardColumns(cardCount, area)
 }

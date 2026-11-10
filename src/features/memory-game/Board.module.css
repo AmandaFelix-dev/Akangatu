@@ -6,7 +6,7 @@
   /* o maior tamanho que cabe na largura e na altura livres (--chrome), sem scroll; cartas 2:3 */
   width: min(100%, calc(var(--columns) * (100dvh - var(--chrome) - (var(--rows) - 1) * var(--board-gap)) / var(--rows) * 2 / 3 + (var(--columns) - 1) * var(--board-gap)));
   order: 2;
-  margin: var(--board-top, calc(48 * var(--u))) auto var(--board-bottom, 0px);
+  margin: var(--board-top) auto var(--board-bottom);
 }
 /* Área livre medida pelo useBoardColumns para escolher o número de colunas. */
 .area {
