@@ -72,3 +72,20 @@
     --hud-scale: calc(110 * 238 / (150 * 206));
   }
 }
+/* Celular deitado (ou janela baixa): espaços de 16 e --u de 0,7, piso que mantém a pausa com ~45 px ao toque. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .page {
+    --u: 0.7px;
+  }
+  .normal {
+    --top: calc(16 * var(--u));
+    --bottom: calc(16 * var(--u));
+    --board-top: auto;
+    --board-bottom: auto;
+    row-gap: calc(16 * var(--u));
+    --chrome: calc(var(--top) + 78 * var(--u) + 16 * var(--u) + var(--bottom));
+  }
+  .challengeAttempts {
+    --hud-scale: calc(110 * 238 / (150 * 206));
+  }
+}
