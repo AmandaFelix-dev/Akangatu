@@ -1,21 +1,12 @@
-.home {
-  position: absolute;
-  top: 14px;
-  left: 10px;
-  width: calc(63 * var(--u));
-  border: 0;
-  padding: 0;
-  background: none;
-  cursor: pointer;
-}
 .actions {
-  display: grid;
-  justify-items: center;
-  gap: calc(8 * var(--u));
-  padding: calc(18 * var(--u)) 0 calc(31 * var(--u));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: calc(26 * var(--u));
+  padding: calc(20 * var(--u)) 0 calc(32 * var(--u));
 }
 .action {
-  width: calc(71 * var(--u));
+  width: calc(78 * var(--u));
   border: 0;
   padding: 0;
   background: none;

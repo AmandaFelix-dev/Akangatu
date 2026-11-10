@@ -41,11 +41,11 @@ export function PauseModal({
     );
   }
   return (
-    <Modal title="Deseja continuar?" onClose={onContinue} ownClose flush titleTop="calc(95 * var(--u))">
-      <button aria-label="Sair" className={styles.home} onClick={() => setConfirmingExit(true)}>
-        <img src={homeButton} alt="" />
-      </button>
+    <Modal title="Deseja continuar?" onClose={onContinue} ownClose flush titleTop="calc(30 * var(--u))">
       <div className={styles.actions}>
+        <button aria-label="Sair" className={styles.action} onClick={() => setConfirmingExit(true)}>
+          <img src={homeButton} alt="" />
+        </button>
         <button aria-label="Continuar" className={styles.action} onClick={onContinue}>
           <img src={playButton} alt="" />
         </button>
