@@ -1,4 +1,4 @@
-import { Button } from '../../components/Button/Button';
+import backIcon from '../../assets/layout/btn/back-to.svg';
 import { THEMES } from '../../data/themes';
 import { THEME_BACKGROUNDS } from '../../data/themeBackgrounds';
 import { UNLOCK_RULES } from '../../data/unlockRules';
@@ -111,13 +111,14 @@ export function AboutPage({ onBack }: {
 
     return (
         <main className={styles.page}>
-            <Button
-                variant="text"
+            <button
+                type="button"
                 className={styles.back}
+                aria-label="Voltar"
                 onClick={onBack}
             >
-                ← Voltar ao início
-            </Button>
+                <img src={backIcon} alt="Voltar" />
+            </button>
 
             <header className={styles.hero}>
                 <div className={styles.heroText}>
