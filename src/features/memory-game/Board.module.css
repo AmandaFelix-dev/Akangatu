@@ -19,3 +19,12 @@
   visibility: hidden;
   pointer-events: none;
 }
+
+@media (max-width: 700px) and (orientation: portrait) {
+  /* Centraliza as duas últimas cartas quando o tabuleiro tem 8 cartas. */
+  .board:has(> :nth-child(8):last-child) > :nth-child(7),
+  .board:has(> :nth-child(8):last-child) > :nth-child(8) {
+    position: relative;
+    left: 50%;
+  }
+}
